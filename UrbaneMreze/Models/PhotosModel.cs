@@ -18,15 +18,15 @@ namespace UrbaneMreze.Models
 
         public String Description { get; set; }
 
-        public Decimal Longitude { get; set; }
+        public Double Longitude { get; set; }
 
-        public Decimal Latitude { get; set; }
+        public Double Latitude { get; set; }
 
         public DateTime DateCreated { get; set; }
 
-        public String File { get; set; }
+        public String FilePath { get; set; }
 
-        public String Thumbnail { get; set; }
+        public byte[] Thumbnail { get; set; }
 
         public String ContentType { get; set; }
     }
