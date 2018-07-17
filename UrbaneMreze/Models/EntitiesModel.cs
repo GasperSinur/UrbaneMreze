@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class EntitiesModel
+    public class Entities
     {
         [Key]
         public Guid EntityGuid { get; set; }

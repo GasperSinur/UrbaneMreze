@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class CommentsModel
+    public class Comments
     {
         [Key]
         public Guid CommentGuid { get; set; }

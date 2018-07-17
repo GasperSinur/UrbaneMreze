@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class PhotosModel
+    public class Photos
     {
         [Key]
         public Guid PhotoGuid { get; set; }

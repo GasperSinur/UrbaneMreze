@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class PinsModel
+    public class Pins
     {
         [Key]
         public Guid PinGuid { get; set; }
@@ -19,6 +19,5 @@ namespace UrbaneMreze.Models
         public string Color { get; set; }
 
         public string Description { get; set; }
-
     }
 }
