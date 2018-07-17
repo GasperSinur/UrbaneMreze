@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,108 +11,129 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
-    public class AuthorsController : Controller
+    public class PinsController : Controller
     {
-        private AuthorsDbContext db = new AuthorsDbContext();
+        private PinsDbContext db = new PinsDbContext();
 
-        // GET: Authors
+        // GET: Pins
         public ActionResult Index()
         {
-            return View(db.Authors.ToList());
+            return View(db.Pins.ToList());
         }
 
-        // GET: Authors/Details/5
+        // GET: Pins/Details/5
         public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Authors authors = db.Authors.Find(id);
-            if (authors == null)
+            Pin pins = db.Pins.Find(id);
+            if (pins == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(pins);
         }
 
-        // GET: Authors/Create
+        // GET: Pins/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Authors/Create
+        // POST: Pins/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AuthorGuid,Surname,Name,Email,DateCreated,PrivateInfo")] Authors authors)
+        public ActionResult Create([Bind(Include = "Name,Icon,Color,Description")] PinViewModel pinViewModel)
         {
             if (ModelState.IsValid)
             {
-                authors.AuthorGuid = Guid.NewGuid();
-                db.Authors.Add(authors);
+                Pin pin = new Pin();
+                pin.PinGuid = Guid.NewGuid();
+                pin.Name = pinViewModel.Name;
+                pin.Color = pinViewModel.Color;
+                pin.Description = pinViewModel.Description;
+                
+                // Handle the icon
+                if (pinViewModel.Icon != null && pinViewModel.Icon.ContentLength > 0)
+                {
+                    if (!Auxiliaries.ValidImageTypes.Contains(pinViewModel.Icon.ContentType))
+                    {
+                        ModelState.AddModelError("Icon", "Choose an image in one of the following formats: GIF, JPG, or PNG.");
+                    }
+                    else
+                    {
+                        using (var reader = new BinaryReader(pinViewModel.Icon.InputStream))
+                        {
+                            pin.Icon = reader.ReadBytes(pinViewModel.Icon.ContentLength);
+                        }
+                    }
+                }
+
+                db.Pins.Add(pin);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(authors);
+            return View(pinViewModel);
         }
 
-        // GET: Authors/Edit/5
+        // GET: Pins/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Authors authors = db.Authors.Find(id);
-            if (authors == null)
+            Pin pins = db.Pins.Find(id);
+            if (pins == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(pins);
         }
 
-        // POST: Authors/Edit/5
+        // POST: Pins/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AuthorGuid,Surname,Name,Email,DateCreated,PrivateInfo")] Authors authors)
+        public ActionResult Edit([Bind(Include = "PinGuid,Name,Icon,Color,Description")] Pin pins)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(authors).State = EntityState.Modified;
+                db.Entry(pins).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(authors);
+            return View(pins);
         }
 
-        // GET: Authors/Delete/5
+        // GET: Pins/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Authors authors = db.Authors.Find(id);
-            if (authors == null)
+            Pin pins = db.Pins.Find(id);
+            if (pins == null)
             {
                 return HttpNotFound();
             }
-            return View(authors);
+            return View(pins);
         }
 
-        // POST: Authors/Delete/5
+        // POST: Pins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Authors authors = db.Authors.Find(id);
-            db.Authors.Remove(authors);
+            Pin pins = db.Pins.Find(id);
+            db.Pins.Remove(pins);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

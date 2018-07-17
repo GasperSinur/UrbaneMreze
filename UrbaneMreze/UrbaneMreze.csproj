@@ -195,25 +195,33 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Auxiliaries.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Controllers\PinsController.cs" />
     <Compile Include="Controllers\SpotsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807171615566_PinsUpdate.cs" />
+    <Compile Include="Migrations\201807171615566_PinsUpdate.Designer.cs">
+      <DependentUpon>201807171615566_PinsUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807171624528_PinsUpdate2.cs" />
+    <Compile Include="Migrations\201807171624528_PinsUpdate2.Designer.cs">
+      <DependentUpon>201807171624528_PinsUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AuthorsModel.cs" />
     <Compile Include="Models\CommentsModel.cs" />
     <Compile Include="Models\EntitiesModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhotosModel.cs" />
     <Compile Include="Models\PinsModel.cs" />
-    <Compile Include="Models\SpotActualitiesModel.cs" />
     <Compile Include="Models\SpotsEntitiesModel.cs" />
     <Compile Include="Models\SpotsModel.cs" />
     <Compile Include="Models\TypesModel.cs" />
@@ -245,7 +253,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -289,16 +299,16 @@
     <Content Include="Views\Photos\Details.cshtml" />
     <Content Include="Views\Photos\Edit.cshtml" />
     <Content Include="Views\Photos\Index.cshtml" />
-    <Content Include="Views\Authors\Create.cshtml" />
-    <Content Include="Views\Authors\Delete.cshtml" />
-    <Content Include="Views\Authors\Details.cshtml" />
-    <Content Include="Views\Authors\Edit.cshtml" />
-    <Content Include="Views\Authors\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Pins\Create.cshtml" />
+    <Content Include="Views\Pins\Delete.cshtml" />
+    <Content Include="Views\Pins\Details.cshtml" />
+    <Content Include="Views\Pins\Edit.cshtml" />
+    <Content Include="Views\Pins\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,6 +325,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807171615566_PinsUpdate.resx">
+      <DependentUpon>201807171615566_PinsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807171624528_PinsUpdate2.resx">
+      <DependentUpon>201807171624528_PinsUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

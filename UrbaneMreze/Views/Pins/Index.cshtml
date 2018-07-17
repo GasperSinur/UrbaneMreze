@@ -1,0 +1,52 @@
+﻿@model IEnumerable<UrbaneMreze.Models.Pin>
+
+@{
+    ViewBag.Title = "Bucike";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bucike</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Icon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Icon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PinGuid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PinGuid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PinGuid })
+        </td>
+    </tr>
+}
+
+</table>

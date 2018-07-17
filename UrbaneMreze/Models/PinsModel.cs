@@ -7,15 +7,35 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class Pins
+    public class Pin
     {
         [Key]
         public Guid PinGuid { get; set; }
 
+        [Required(ErrorMessage = "Vpišite ime!")]
         public string Name { get; set; }
 
-        public string Icon { get; set; }
+        [Required(ErrorMessage = "Dodajte ikono!")]
+        public byte[] Icon { get; set; }
 
+        [Required(ErrorMessage = "Izberite barvo!")]
+        public string Color { get; set; }
+
+        public string Description { get; set; }
+    }
+
+    public class PinViewModel
+    {
+        [Key]
+        public Guid PinGuid { get; set; }
+
+        [Required(ErrorMessage = "Vpišite ime!")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Dodajte ikono!")]
+        public HttpPostedFileBase Icon { get; set; }
+
+        [Required(ErrorMessage = "Izberite barvo!")]
         public string Color { get; set; }
 
         public string Description { get; set; }
@@ -23,7 +43,7 @@ namespace UrbaneMreze.Models
 
     public class PinsDbContext : DbContext
     {
-        public DbSet<Pins> Pins { get; set; }
+        public DbSet<Pin> Pins { get; set; }
 
         public PinsDbContext() : base("UrbaneMreze") { }
     }
