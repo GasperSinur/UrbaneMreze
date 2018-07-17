@@ -7,12 +7,12 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class SpotsEntitiesModel
+    public class SpotActualitiesModel
     {
         [Key]
         public Guid SpotGuid { get; set; }
 
         [Key]
-        public Guid EntityGuid { get; set; }
+        public Guid AuthorGuid { get; set; }
     }
 }

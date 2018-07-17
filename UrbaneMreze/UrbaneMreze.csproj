@@ -202,11 +202,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AuthorsModel.cs" />
+    <Compile Include="Models\CommentsModel.cs" />
     <Compile Include="Models\EntitiesModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PhotosModel.cs" />
     <Compile Include="Models\PinsModel.cs" />
+    <Compile Include="Models\SpotActualitiesModel.cs" />
     <Compile Include="Models\SpotsEntitiesModel.cs" />
+    <Compile Include="Models\SpotsModel.cs" />
     <Compile Include="Models\TypesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
