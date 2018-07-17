@@ -1,0 +1,64 @@
+﻿@model IEnumerable<UrbaneMreze.Models.Comments>
+
+@{
+    ViewBag.Title = "Komentarji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Komentarji</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SpotGuid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorGuid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpotGuid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorGuid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateModified)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CommentGuid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CommentGuid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CommentGuid })
+        </td>
+    </tr>
+}
+
+</table>
