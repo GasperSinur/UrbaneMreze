@@ -18,4 +18,11 @@ namespace UrbaneMreze.Models
 
         public Guid PinGuid { get; set; }
     }
+
+    public class TypesDbContext : DbContext
+    {
+        public DbSet<Types> Types { get; set; }
+
+        public TypesDbContext() : base("UrbaneMreze") { }
+    }
 }

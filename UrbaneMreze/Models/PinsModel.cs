@@ -20,4 +20,11 @@ namespace UrbaneMreze.Models
 
         public string Description { get; set; }
     }
+
+    public class PinsDbContext : DbContext
+    {
+        public DbSet<Pins> Pins { get; set; }
+
+        public PinsDbContext() : base("UrbaneMreze") { }
+    }
 }

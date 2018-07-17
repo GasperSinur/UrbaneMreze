@@ -24,4 +24,11 @@ namespace UrbaneMreze.Models
 
         public DateTime DateModified { get; set; }
     }
+
+    public class CommentsDbContext : DbContext
+    {
+        public DbSet<Comments> Comments { get; set; }
+
+        public CommentsDbContext() : base("UrbaneMreze") { }
+    }
 }

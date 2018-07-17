@@ -26,4 +26,11 @@ namespace UrbaneMreze.Models
 
         public DateTime DateModified { get; set; }
     }
+
+    public class SpotsDbContext : DbContext
+    {
+        public DbSet<Spots> Spots { get; set; }
+
+        public SpotsDbContext() : base("UrbaneMreze") { }
+    }
 }

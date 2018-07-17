@@ -22,4 +22,11 @@ namespace UrbaneMreze.Models
 
         public String PrivateInfo { get; set; }
     }
+
+    public class AuthorsDbContext : DbContext
+    {
+        public DbSet<Authors> Authors { get; set; }
+
+        public AuthorsDbContext() : base("UrbaneMreze") { }
+    }
 }

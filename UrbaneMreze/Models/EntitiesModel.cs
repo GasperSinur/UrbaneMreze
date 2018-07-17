@@ -18,4 +18,11 @@ namespace UrbaneMreze.Models
 
         public String Description { get; set; }        
     }
+
+    public class EntitiesDbContext : DbContext
+    {
+        public DbSet<Entities> Entities { get; set; }
+
+        public EntitiesDbContext() : base("UrbaneMreze") { }
+    }
 }

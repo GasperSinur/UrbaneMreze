@@ -30,4 +30,11 @@ namespace UrbaneMreze.Models
 
         public String ContentType { get; set; }
     }
+
+    public class PhotosDbContext : DbContext
+    {
+        public DbSet<Photos> Photos { get; set; }
+
+        public PhotosDbContext() : base("UrbaneMreze") { }
+    }
 }

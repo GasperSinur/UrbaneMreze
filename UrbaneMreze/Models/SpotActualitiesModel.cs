@@ -15,4 +15,11 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid AuthorGuid { get; set; }
     }
+
+    public class SpotActualitiesDbContext : DbContext
+    {
+        public DbSet<SpotActualities> SpotActualities { get; set; }
+
+        public SpotActualitiesDbContext() : base("UrbaneMreze") { }
+    }
 }

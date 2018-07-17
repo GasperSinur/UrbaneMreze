@@ -15,4 +15,11 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid EntityGuid { get; set; }
     }
+
+    public class SpotsEntitiesDbContext : DbContext
+    {
+        public DbSet<SpotsEntities> SpotsEntities { get; set; }
+
+        public SpotsEntitiesDbContext() : base("UrbaneMreze") { }
+    }
 }
