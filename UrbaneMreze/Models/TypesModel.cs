@@ -7,11 +7,12 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class Types
+    public class Type
     {
         [Key]
         public Guid TypeGuid { get; set; }
 
+        [Required(ErrorMessage = "Vpišite ime tipa!")]
         public String TypeName { get; set; }
 
         public String Description { get; set; }
@@ -21,7 +22,7 @@ namespace UrbaneMreze.Models
 
     public class TypesDbContext : DbContext
     {
-        public DbSet<Types> Types { get; set; }
+        public DbSet<Type> Types { get; set; }
 
         public TypesDbContext() : base("UrbaneMreze") { }
     }

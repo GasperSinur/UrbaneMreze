@@ -203,6 +203,7 @@
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\PinsController.cs" />
     <Compile Include="Controllers\SpotsController.cs" />
+    <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,6 +214,10 @@
     <Compile Include="Migrations\201807171624528_PinsUpdate2.cs" />
     <Compile Include="Migrations\201807171624528_PinsUpdate2.Designer.cs">
       <DependentUpon>201807171624528_PinsUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807181106468_TypesUpdate.cs" />
+    <Compile Include="Migrations\201807181106468_TypesUpdate.Designer.cs">
+      <DependentUpon>201807181106468_TypesUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -309,6 +314,11 @@
     <Content Include="Views\Pins\Details.cshtml" />
     <Content Include="Views\Pins\Edit.cshtml" />
     <Content Include="Views\Pins\Index.cshtml" />
+    <Content Include="Views\Types\Create.cshtml" />
+    <Content Include="Views\Types\Delete.cshtml" />
+    <Content Include="Views\Types\Details.cshtml" />
+    <Content Include="Views\Types\Edit.cshtml" />
+    <Content Include="Views\Types\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807171624528_PinsUpdate2.resx">
       <DependentUpon>201807171624528_PinsUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807181106468_TypesUpdate.resx">
+      <DependentUpon>201807181106468_TypesUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
