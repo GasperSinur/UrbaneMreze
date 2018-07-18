@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201807181106468_TypesUpdate.Designer.cs">
       <DependentUpon>201807181106468_TypesUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807181126355_CommentsUpdate.cs" />
+    <Compile Include="Migrations\201807181126355_CommentsUpdate.Designer.cs">
+      <DependentUpon>201807181126355_CommentsUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
@@ -345,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807181106468_TypesUpdate.resx">
       <DependentUpon>201807181106468_TypesUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807181126355_CommentsUpdate.resx">
+      <DependentUpon>201807181126355_CommentsUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

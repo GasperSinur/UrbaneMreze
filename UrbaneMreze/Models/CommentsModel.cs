@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class Comments
+    public class Comment
     {
         [Key]
         public Guid CommentGuid { get; set; }
@@ -27,7 +27,7 @@ namespace UrbaneMreze.Models
 
     public class CommentsDbContext : DbContext
     {
-        public DbSet<Comments> Comments { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public CommentsDbContext() : base("UrbaneMreze") { }
     }

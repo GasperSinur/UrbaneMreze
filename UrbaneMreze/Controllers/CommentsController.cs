@@ -27,7 +27,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comments comments = db.Comments.Find(id);
+            Comment comments = db.Comments.Find(id);
             if (comments == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentGuid,SpotGuid,AuthorGuid,Title,Text,DateCreated,DateModified")] Comments comments)
+        public ActionResult Create([Bind(Include = "CommentGuid,SpotGuid,AuthorGuid,Title,Text,DateCreated,DateModified")] Comment comments)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comments comments = db.Comments.Find(id);
+            Comment comments = db.Comments.Find(id);
             if (comments == null)
             {
                 return HttpNotFound();
@@ -79,7 +79,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,AuthorGuid,Title,Text,DateCreated,DateModified")] Comments comments)
+        public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,AuthorGuid,Title,Text,DateCreated,DateModified")] Comment comments)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comments comments = db.Comments.Find(id);
+            Comment comments = db.Comments.Find(id);
             if (comments == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Comments comments = db.Comments.Find(id);
+            Comment comments = db.Comments.Find(id);
             db.Comments.Remove(comments);
             db.SaveChanges();
             return RedirectToAction("Index");
