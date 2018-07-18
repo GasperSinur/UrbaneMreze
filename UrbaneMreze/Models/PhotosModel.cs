@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class Photos
+    public class Photo
     {
         [Key]
         public Guid PhotoGuid { get; set; }
@@ -33,7 +33,7 @@ namespace UrbaneMreze.Models
 
     public class PhotosDbContext : DbContext
     {
-        public DbSet<Photos> Photos { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public PhotosDbContext() : base("UrbaneMreze") { }
     }

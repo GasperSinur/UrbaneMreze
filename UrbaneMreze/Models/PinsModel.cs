@@ -22,6 +22,14 @@ namespace UrbaneMreze.Models
         public string Color { get; set; }
 
         public string Description { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public DateTime DateModified { get; set; }
+
+        public string UserCreatedID { get; set; }
+
+        public string UserModifiedID { get; set; }
     }
 
     public class PinViewModel

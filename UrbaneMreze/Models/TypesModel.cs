@@ -17,12 +17,17 @@ namespace UrbaneMreze.Models
 
         public String Description { get; set; }
 
+        [Required(ErrorMessage = "Izberite Buciko!")]
         public Guid PinGuid { get; set; }
+
+        public virtual Pin Pin { get; set; }
     }
 
     public class TypesDbContext : DbContext
     {
         public DbSet<Type> Types { get; set; }
+
+        public DbSet<Pin> Pins { get; set; }
 
         public TypesDbContext() : base("UrbaneMreze") { }
     }

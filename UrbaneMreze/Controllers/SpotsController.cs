@@ -27,7 +27,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Spots spots = db.Spots.Find(id);
+            Spot spots = db.Spots.Find(id);
             if (spots == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SpotGuid,SpotName,AuthorGuid,Description,Longitude,Latitude,DateCreated,DateModified")] Spots spots)
+        public ActionResult Create([Bind(Include = "SpotGuid,SpotName,AuthorGuid,Description,Longitude,Latitude,DateCreated,DateModified")] Spot spots)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Spots spots = db.Spots.Find(id);
+            Spot spots = db.Spots.Find(id);
             if (spots == null)
             {
                 return HttpNotFound();
@@ -79,7 +79,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,AuthorGuid,Description,Longitude,Latitude,DateCreated,DateModified")] Spots spots)
+        public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,AuthorGuid,Description,Longitude,Latitude,DateCreated,DateModified")] Spot spots)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Spots spots = db.Spots.Find(id);
+            Spot spots = db.Spots.Find(id);
             if (spots == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Spots spots = db.Spots.Find(id);
+            Spot spots = db.Spots.Find(id);
             db.Spots.Remove(spots);
             db.SaveChanges();
             return RedirectToAction("Index");

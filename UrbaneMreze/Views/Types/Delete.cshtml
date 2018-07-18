@@ -13,6 +13,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Pin.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pin.Name)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.TypeName)
         </dt>
 
@@ -26,14 +34,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PinGuid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PinGuid)
         </dd>
 
     </dl>

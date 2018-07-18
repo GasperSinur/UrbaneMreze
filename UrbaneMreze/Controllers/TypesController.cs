@@ -17,7 +17,8 @@ namespace UrbaneMreze.Controllers
         // GET: Types
         public ActionResult Index()
         {
-            return View(db.Types.ToList());
+            var types = db.Types.Include(t => t.Pin);
+            return View(types.ToList());
         }
 
         // GET: Types/Details/5
@@ -38,6 +39,7 @@ namespace UrbaneMreze.Controllers
         // GET: Types/Create
         public ActionResult Create()
         {
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name");
             return View();
         }
 
@@ -56,6 +58,7 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
             return View(type);
         }
 
@@ -71,6 +74,7 @@ namespace UrbaneMreze.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
             return View(type);
         }
 
@@ -79,7 +83,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TypeGuid,TypeName,Description,PinGuid")] Models.Type type)
+        public ActionResult Edit([Bind(Include = "TypeName,Description,PinGuid")] Models.Type type)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +91,7 @@ namespace UrbaneMreze.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
             return View(type);
         }
 

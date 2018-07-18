@@ -27,7 +27,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photos photos = db.Photos.Find(id);
+            Photo photos = db.Photos.Find(id);
             if (photos == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PhotoGuid,SpotGuid,AuthorGuid,Description,Longitude,Latitude,DateCreated,FilePath,Thumbnail,ContentType")] Photos photos)
+        public ActionResult Create([Bind(Include = "PhotoGuid,SpotGuid,AuthorGuid,Description,Longitude,Latitude,DateCreated,FilePath,Thumbnail,ContentType")] Photo photos)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photos photos = db.Photos.Find(id);
+            Photo photos = db.Photos.Find(id);
             if (photos == null)
             {
                 return HttpNotFound();
@@ -79,7 +79,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PhotoGuid,SpotGuid,AuthorGuid,Description,Longitude,Latitude,DateCreated,FilePath,Thumbnail,ContentType")] Photos photos)
+        public ActionResult Edit([Bind(Include = "PhotoGuid,SpotGuid,AuthorGuid,Description,Longitude,Latitude,DateCreated,FilePath,Thumbnail,ContentType")] Photo photos)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photos photos = db.Photos.Find(id);
+            Photo photos = db.Photos.Find(id);
             if (photos == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Photos photos = db.Photos.Find(id);
+            Photo photos = db.Photos.Find(id);
             db.Photos.Remove(photos);
             db.SaveChanges();
             return RedirectToAction("Index");

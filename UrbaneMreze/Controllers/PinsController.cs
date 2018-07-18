@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -56,7 +57,12 @@ namespace UrbaneMreze.Controllers
                 pin.Name = pinViewModel.Name;
                 pin.Color = pinViewModel.Color;
                 pin.Description = pinViewModel.Description;
-                
+
+                pin.DateCreated = DateTime.Now;
+                pin.DateModified = DateTime.Now;
+                pin.UserCreatedID = User.Identity.GetUserId();
+                pin.UserModifiedID = User.Identity.GetUserId();
+
                 // Handle the icon
                 if (pinViewModel.Icon != null && pinViewModel.Icon.ContentLength > 0)
                 {
