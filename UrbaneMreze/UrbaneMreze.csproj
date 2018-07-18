@@ -309,16 +309,16 @@
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
-    <Content Include="Views\Types\Create.cshtml" />
-    <Content Include="Views\Types\Delete.cshtml" />
-    <Content Include="Views\Types\Details.cshtml" />
-    <Content Include="Views\Types\Edit.cshtml" />
-    <Content Include="Views\Types\Index.cshtml" />
     <Content Include="Views\Pins\Create.cshtml" />
     <Content Include="Views\Pins\Delete.cshtml" />
     <Content Include="Views\Pins\Details.cshtml" />
     <Content Include="Views\Pins\Edit.cshtml" />
     <Content Include="Views\Pins\Index.cshtml" />
+    <Content Include="Views\Types\Create.cshtml" />
+    <Content Include="Views\Types\Delete.cshtml" />
+    <Content Include="Views\Types\Details.cshtml" />
+    <Content Include="Views\Types\Edit.cshtml" />
+    <Content Include="Views\Types\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

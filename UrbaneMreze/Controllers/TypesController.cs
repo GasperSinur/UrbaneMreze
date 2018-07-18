@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -48,18 +49,26 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TypeGuid,TypeName,Description,PinGuid")] Models.Type type)
+        public ActionResult Create([Bind(Include = "TypeName,Description,PinGuid")] TypeViewModel typeViewModel)
         {
             if (ModelState.IsValid)
             {
+                Models.Type type = new Models.Type();
                 type.TypeGuid = Guid.NewGuid();
+                type.TypeName = typeViewModel.TypeName;
+
+                type.DateCreated = DateTime.Now;
+                type.DateModified = type.DateCreated;
+                type.UserCreatedID = User.Identity.GetUserId();
+                type.UserModifiedID = User.Identity.GetUserId();
+
                 db.Types.Add(type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
-            return View(type);
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", typeViewModel.PinGuid);
+            return View(typeViewModel);
         }
 
         // GET: Types/Edit/5
@@ -83,7 +92,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TypeName,Description,PinGuid")] Models.Type type)
+        public ActionResult Edit([Bind(Include = "TypeGuid,TypeName,Description,PinGuid")] Models.Type type)
         {
             if (ModelState.IsValid)
             {
