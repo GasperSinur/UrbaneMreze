@@ -11,122 +11,122 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
-    public class TypesController : Controller
+    public class EntitiesController : Controller
     {
-        private TypesDbContext db = new TypesDbContext();
+        private EntitiesDbContext db = new EntitiesDbContext();
 
-        // GET: Types
+        // GET: Entities
         public ActionResult Index()
         {
-            var types = db.Types.Include(t => t.Pin);
-            return View(types.ToList());
+            var entities = db.Entities.Include(e => e.Type);
+            return View(entities.ToList());
         }
 
-        // GET: Types/Details/5
+        // GET: Entities/Details/5
         public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Type type = db.Types.Find(id);
-            if (type == null)
+            Entity entity = db.Entities.Find(id);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
-            return View(type);
+            return View(entity);
         }
 
-        // GET: Types/Create
+        // GET: Entities/Create
         public ActionResult Create()
         {
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name");
+            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName");
             return View();
         }
 
-        // POST: Types/Create
+        // POST: Entities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TypeName,Description,PinGuid")] TypeViewModel typeViewModel)
+        public ActionResult Create([Bind(Include = "TypeGuid,EntityName,Description")] EntityViewModel entityViewModel)
         {
             if (ModelState.IsValid)
             {
-                Models.Type type = new Models.Type();
-                type.TypeGuid = Guid.NewGuid();
-                type.TypeName = typeViewModel.TypeName;
-                type.Description = typeViewModel.Description;
+                Entity entity = new Entity();
+                entity.EntityGuid = Guid.NewGuid();
+                entity.EntityName = entityViewModel.EntityName;
+                entity.Description = entityViewModel.Description;
 
-                type.DateCreated = DateTime.Now;
-                type.DateModified = type.DateCreated;
-                type.UserCreatedID = User.Identity.GetUserId();
-                type.UserModifiedID = User.Identity.GetUserId();
+                entity.DateCreated = DateTime.Now;
+                entity.DateModified = entity.DateCreated;
+                entity.UserCreatedID = User.Identity.GetUserId();
+                entity.UserModifiedID = User.Identity.GetUserId();
 
-                db.Types.Add(type);
+                db.Entities.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", typeViewModel.PinGuid);
-            return View(typeViewModel);
+            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entityViewModel.TypeGuid);
+            return View(entityViewModel);
         }
 
-        // GET: Types/Edit/5
+        // GET: Entities/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Type type = db.Types.Find(id);
-            if (type == null)
+            Entity entity = db.Entities.Find(id);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
-            return View(type);
+            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entity.TypeGuid);
+            return View(entity);
         }
 
-        // POST: Types/Edit/5
+        // POST: Entities/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TypeGuid,TypeName,Description,PinGuid")] Models.Type type)
+        public ActionResult Edit([Bind(Include = "EntityGuid,TypeGuid,EntityName,Description,DateCreated,DateModified,UserCreatedID,UserModifiedID")] Entity entity)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(type).State = EntityState.Modified;
+                db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
-            return View(type);
+            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entity.TypeGuid);
+            return View(entity);
         }
 
-        // GET: Types/Delete/5
+        // GET: Entities/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.Type type = db.Types.Find(id);
-            if (type == null)
+            Entity entity = db.Entities.Find(id);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
-            return View(type);
+            return View(entity);
         }
 
-        // POST: Types/Delete/5
+        // POST: Entities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Models.Type type = db.Types.Find(id);
-            db.Types.Remove(type);
+            Entity entity = db.Entities.Find(id);
+            db.Entities.Remove(entity);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

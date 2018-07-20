@@ -198,6 +198,7 @@
     <Compile Include="Auxiliaries.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
@@ -207,17 +208,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807171615566_PinsUpdate.cs" />
-    <Compile Include="Migrations\201807171615566_PinsUpdate.Designer.cs">
-      <DependentUpon>201807171615566_PinsUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807171624528_PinsUpdate2.cs" />
-    <Compile Include="Migrations\201807171624528_PinsUpdate2.Designer.cs">
-      <DependentUpon>201807171624528_PinsUpdate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807181241477_PinsUpdate3.cs" />
-    <Compile Include="Migrations\201807181241477_PinsUpdate3.Designer.cs">
-      <DependentUpon>201807181241477_PinsUpdate3.cs</DependentUpon>
+    <Compile Include="Migrations\201807200850320_EntitiesUpdate.cs" />
+    <Compile Include="Migrations\201807200850320_EntitiesUpdate.Designer.cs">
+      <DependentUpon>201807200850320_EntitiesUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -319,6 +312,11 @@
     <Content Include="Views\Types\Details.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
+    <Content Include="Views\Entities\Create.cshtml" />
+    <Content Include="Views\Entities\Delete.cshtml" />
+    <Content Include="Views\Entities\Details.cshtml" />
+    <Content Include="Views\Entities\Edit.cshtml" />
+    <Content Include="Views\Entities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -337,14 +335,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807171615566_PinsUpdate.resx">
-      <DependentUpon>201807171615566_PinsUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807171624528_PinsUpdate2.resx">
-      <DependentUpon>201807171624528_PinsUpdate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807181241477_PinsUpdate3.resx">
-      <DependentUpon>201807181241477_PinsUpdate3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807200850320_EntitiesUpdate.resx">
+      <DependentUpon>201807200850320_EntitiesUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

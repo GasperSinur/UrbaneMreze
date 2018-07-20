@@ -7,21 +7,48 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class Entities
+    public class Entity
     {
         [Key]
         public Guid EntityGuid { get; set; }
 
+        [Required(ErrorMessage = "Izberite Tip!")]
         public Guid TypeGuid { get; set; }
+        public virtual Type Type { get; set; }
 
+        [Required(ErrorMessage = "Vpišite ime entitete!")]
         public String EntityName { get; set; }
 
-        public String Description { get; set; }        
+        public String Description { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public DateTime DateModified { get; set; }
+
+        public string UserCreatedID { get; set; }
+
+        public string UserModifiedID { get; set; }
+    }
+
+    public class EntityViewModel
+    {
+        [Key]
+        public Guid EntityGuid { get; set; }
+
+        [Required(ErrorMessage = "Izberite Tip!")]
+        public Guid TypeGuid { get; set; }
+
+        [Required(ErrorMessage = "Vpišite ime entitete!")]
+        public String EntityName { get; set; }
+
+        public String Description { get; set; }
     }
 
     public class EntitiesDbContext : DbContext
     {
-        public DbSet<Entities> Entities { get; set; }
+        public DbSet<Entity> Entities { get; set; }
+
+        public DbSet<Type> Types { get; set; }
 
         public EntitiesDbContext() : base("UrbaneMreze") { }
     }

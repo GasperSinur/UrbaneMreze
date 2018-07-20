@@ -1,11 +1,11 @@
-﻿@model IEnumerable<UrbaneMreze.Models.Pin>
+﻿@model IEnumerable<UrbaneMreze.Models.Entity>
 
 @{
-    ViewBag.Title = "Bucike";
+    ViewBag.Title = "Entitete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Bucike</h2>
+<h2>Entitete</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,13 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Type.TypeName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Icon)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
+            @Html.DisplayNameFor(model => model.EntityName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -42,13 +39,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Type.TypeName)
         </td>
         <td>
-            <!--@Html.DisplayFor(modelItem => item.Icon)-->
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
+            @Html.DisplayFor(modelItem => item.EntityName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
@@ -66,9 +60,9 @@
             @Html.DisplayFor(modelItem => item.UserModifiedID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PinGuid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PinGuid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PinGuid })
+            @Html.ActionLink("Edit", "Edit", new { id=item.EntityGuid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EntityGuid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EntityGuid })
         </td>
     </tr>
 }

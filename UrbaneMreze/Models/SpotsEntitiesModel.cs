@@ -7,7 +7,7 @@ using System.Web;
 
 namespace UrbaneMreze.Models
 {
-    public class SpotsEntities
+    public class SpotEntity
     {
         [Key]
         public Guid SpotGuid { get; set; }
@@ -18,7 +18,7 @@ namespace UrbaneMreze.Models
 
     public class SpotsEntitiesDbContext : DbContext
     {
-        public DbSet<SpotsEntities> SpotsEntities { get; set; }
+        public DbSet<SpotEntity> SpotsEntities { get; set; }
 
         public SpotsEntitiesDbContext() : base("UrbaneMreze") { }
     }
