@@ -12,19 +12,41 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid SpotGuid { get; set; }
 
+        [Required(ErrorMessage = "Vpišite ime Lokacije!")]
         public String SpotName { get; set; }
-
-        public Guid AuthorGuid { get; set; }
 
         public String Description { get; set; }
 
+        [Required]
         public Double Longitude { get; set; }
 
+        [Required]
         public Double Latitude { get; set; }
 
         public DateTime DateCreated { get; set; }
 
         public DateTime DateModified { get; set; }
+
+        public Guid UserCreatedID { get; set; }
+
+        public Guid UserModifiedID { get; set; }
+    }
+
+    public class SpotViewModel
+    {
+        [Key]
+        public Guid SpotGuid { get; set; }
+
+        [Required(ErrorMessage = "Vpišite ime Lokacije!")]
+        public String SpotName { get; set; }
+
+        public String Description { get; set; }
+
+        [Required]
+        public Double Longitude { get; set; }
+
+        [Required]
+        public Double Latitude { get; set; }
     }
 
     public class SpotsDbContext : DbContext

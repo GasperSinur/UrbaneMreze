@@ -9,7 +9,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Spots</h4>
+    <h4>Spot</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,14 +18,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.SpotName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorGuid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuthorGuid)
         </dd>
 
         <dt>
@@ -66,6 +58,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.DateModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserCreatedID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserCreatedID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserModifiedID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserModifiedID)
         </dd>
 
     </dl>

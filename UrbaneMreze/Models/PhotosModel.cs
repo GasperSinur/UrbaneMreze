@@ -12,23 +12,34 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid PhotoGuid { get; set; }
 
+        [Required(ErrorMessage = "Izberite Lokacijo!")]
         public Guid SpotGuid { get; set; }
-
-        public Guid AuthorGuid { get; set; }
+        public virtual Spot Spot { get; set; }
 
         public String Description { get; set; }
 
+        [Required(ErrorMessage = "Izberite Longitude!")]
         public Double Longitude { get; set; }
 
+        [Required(ErrorMessage = "Izberite Latitude!")]
         public Double Latitude { get; set; }
+
+        [Required(ErrorMessage = "Izberite lokacijo slike!")]
+        public String FilePath { get; set; }
+
+        [Required(ErrorMessage = "Izberite Sliko!")]
+        public byte[] Thumbnail { get; set; }
+
+
+        public String ContentType { get; set; }
 
         public DateTime DateCreated { get; set; }
 
-        public String FilePath { get; set; }
+        public DateTime DateModified { get; set; }
 
-        public byte[] Thumbnail { get; set; }
+        public Guid UserCreatedID { get; set; }
 
-        public String ContentType { get; set; }
+        public Guid UserModifiedID { get; set; }
     }
 
     public class PhotosDbContext : DbContext

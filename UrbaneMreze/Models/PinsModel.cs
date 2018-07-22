@@ -27,9 +27,9 @@ namespace UrbaneMreze.Models
 
         public DateTime DateModified { get; set; }
 
-        public string UserCreatedID { get; set; }
+        public Guid UserCreatedID { get; set; }
 
-        public string UserModifiedID { get; set; }
+        public Guid UserModifiedID { get; set; }
     }
 
     public class PinViewModel

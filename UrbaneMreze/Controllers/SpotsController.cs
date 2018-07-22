@@ -27,12 +27,12 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Spot spots = db.Spots.Find(id);
-            if (spots == null)
+            Spot spot = db.Spots.Find(id);
+            if (spot == null)
             {
                 return HttpNotFound();
             }
-            return View(spots);
+            return View(spot);
         }
 
         // GET: Spots/Create
@@ -46,17 +46,26 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SpotGuid,SpotName,AuthorGuid,Description,Longitude,Latitude,DateCreated,DateModified")] Spot spots)
+        public ActionResult Create([Bind(Include = "SpotName,Description,Longitude,Latitude")] SpotViewModel spotViewModel)
         {
             if (ModelState.IsValid)
             {
-                spots.SpotGuid = Guid.NewGuid();
-                db.Spots.Add(spots);
+                Spot spot = new Spot();
+                spot.SpotGuid = Guid.NewGuid();
+                spot.SpotName = spotViewModel.SpotName;
+                spot.Description = spotViewModel.Description;
+
+                spot.DateCreated = DateTime.Now;
+                spot.DateModified = spot.DateCreated;
+                spot.UserCreatedID = Auxiliaries.GetUserId(User);
+                spot.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                db.Spots.Add(spot);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(spots);
+            return View(spotViewModel);
         }
 
         // GET: Spots/Edit/5
@@ -66,12 +75,12 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Spot spots = db.Spots.Find(id);
-            if (spots == null)
+            Spot spot = db.Spots.Find(id);
+            if (spot == null)
             {
                 return HttpNotFound();
             }
-            return View(spots);
+            return View(spot);
         }
 
         // POST: Spots/Edit/5
@@ -79,15 +88,15 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,AuthorGuid,Description,Longitude,Latitude,DateCreated,DateModified")] Spot spots)
+        public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,Description,Longitude,Latitude")] Spot spot)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(spots).State = EntityState.Modified;
+                db.Entry(spot).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(spots);
+            return View(spot);
         }
 
         // GET: Spots/Delete/5
@@ -97,12 +106,12 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Spot spots = db.Spots.Find(id);
-            if (spots == null)
+            Spot spot = db.Spots.Find(id);
+            if (spot == null)
             {
                 return HttpNotFound();
             }
-            return View(spots);
+            return View(spot);
         }
 
         // POST: Spots/Delete/5
@@ -110,8 +119,8 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Spot spots = db.Spots.Find(id);
-            db.Spots.Remove(spots);
+            Spot spot = db.Spots.Find(id);
+            db.Spots.Remove(spot);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

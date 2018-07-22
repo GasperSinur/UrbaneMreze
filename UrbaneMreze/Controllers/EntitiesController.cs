@@ -60,8 +60,8 @@ namespace UrbaneMreze.Controllers
 
                 entity.DateCreated = DateTime.Now;
                 entity.DateModified = entity.DateCreated;
-                entity.UserCreatedID = User.Identity.GetUserId();
-                entity.UserModifiedID = User.Identity.GetUserId();
+                entity.UserCreatedID = Auxiliaries.GetUserId(User);
+                entity.UserModifiedID = Auxiliaries.GetUserId(User);
 
                 db.Entities.Add(entity);
                 db.SaveChanges();
@@ -93,7 +93,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EntityGuid,TypeGuid,EntityName,Description,DateCreated,DateModified,UserCreatedID,UserModifiedID")] Entity entity)
+        public ActionResult Edit([Bind(Include = "EntityGuid,TypeGuid,EntityName,Description")] Entity entity)
         {
             if (ModelState.IsValid)
             {

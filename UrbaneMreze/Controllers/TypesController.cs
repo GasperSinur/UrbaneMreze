@@ -60,8 +60,8 @@ namespace UrbaneMreze.Controllers
 
                 type.DateCreated = DateTime.Now;
                 type.DateModified = type.DateCreated;
-                type.UserCreatedID = User.Identity.GetUserId();
-                type.UserModifiedID = User.Identity.GetUserId();
+                type.UserCreatedID = Auxiliaries.GetUserId(User);
+                type.UserModifiedID = Auxiliaries.GetUserId(User);
 
                 db.Types.Add(type);
                 db.SaveChanges();

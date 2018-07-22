@@ -17,7 +17,8 @@ namespace UrbaneMreze.Controllers
         // GET: Comments
         public ActionResult Index()
         {
-            return View(db.Comments.ToList());
+            var comments = db.Comments.Include(c => c.Spot);
+            return View(comments.ToList());
         }
 
         // GET: Comments/Details/5
@@ -27,17 +28,18 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comments = db.Comments.Find(id);
-            if (comments == null)
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(comments);
+            return View(comment);
         }
 
         // GET: Comments/Create
         public ActionResult Create()
         {
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName");
             return View();
         }
 
@@ -46,17 +48,27 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentGuid,SpotGuid,AuthorGuid,Title,Text,DateCreated,DateModified")] Comment comments)
+        public ActionResult Create([Bind(Include = "SpotGuid,Title,Text")] CommentViewModel commentViewModel)
         {
             if (ModelState.IsValid)
             {
-                comments.CommentGuid = Guid.NewGuid();
-                db.Comments.Add(comments);
+                Comment comment = new Comment();
+                comment.CommentGuid = Guid.NewGuid();
+                comment.Title = commentViewModel.Title;
+                comment.Text = commentViewModel.Text;
+
+                comment.DateCreated = DateTime.Now;
+                comment.DateModified = comment.DateCreated;
+                comment.UserCreatedID = Auxiliaries.GetUserId(User);
+                comment.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(comments);
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", commentViewModel.SpotGuid);
+            return View(commentViewModel);
         }
 
         // GET: Comments/Edit/5
@@ -66,12 +78,13 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comments = db.Comments.Find(id);
-            if (comments == null)
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(comments);
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", comment.SpotGuid);
+            return View(comment);
         }
 
         // POST: Comments/Edit/5
@@ -79,15 +92,16 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,AuthorGuid,Title,Text,DateCreated,DateModified")] Comment comments)
+        public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,Title,Text")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(comments).State = EntityState.Modified;
+                db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(comments);
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", comment.SpotGuid);
+            return View(comment);
         }
 
         // GET: Comments/Delete/5
@@ -97,12 +111,12 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comments = db.Comments.Find(id);
-            if (comments == null)
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(comments);
+            return View(comment);
         }
 
         // POST: Comments/Delete/5
@@ -110,8 +124,8 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Comment comments = db.Comments.Find(id);
-            db.Comments.Remove(comments);
+            Comment comment = db.Comments.Find(id);
+            db.Comments.Remove(comment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

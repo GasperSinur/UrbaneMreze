@@ -60,8 +60,8 @@ namespace UrbaneMreze.Controllers
 
                 pin.DateCreated = DateTime.Now;
                 pin.DateModified = DateTime.Now;
-                pin.UserCreatedID = User.Identity.GetUserId();
-                pin.UserModifiedID = User.Identity.GetUserId();
+                pin.UserCreatedID = Auxiliaries.GetUserId(User);
+                pin.UserModifiedID = Auxiliaries.GetUserId(User);
 
                 // Handle the icon
                 if (pinViewModel.Icon != null && pinViewModel.Icon.ContentLength > 0)

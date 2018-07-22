@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<UrbaneMreze.Models.Spot>
 
 @{
-    ViewBag.Title = "Mesta";
+    ViewBag.Title = "Lokacije";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Mesta</h2>
+<h2>Lokacije</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -14,9 +14,6 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.SpotName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AuthorGuid)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -33,6 +30,12 @@
         <th>
             @Html.DisplayNameFor(model => model.DateModified)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserCreatedID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserModifiedID)
+        </th>
         <th></th>
     </tr>
 
@@ -40,9 +43,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.SpotName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AuthorGuid)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
@@ -58,6 +58,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserCreatedID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserModifiedID)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.SpotGuid }) |
