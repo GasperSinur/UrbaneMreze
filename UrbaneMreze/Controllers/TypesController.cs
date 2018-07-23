@@ -49,16 +49,12 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TypeName,Description,PinGuid")] TypeViewModel typeViewModel)
+        public ActionResult Create([Bind(Include = "TypeName,Description,PinGuid")] Models.Type type)
         {
             if (ModelState.IsValid)
             {
-                Models.Type type = new Models.Type();
                 type.TypeGuid = Guid.NewGuid();
-                type.PinGuid = typeViewModel.PinGuid;
-                type.TypeName = typeViewModel.TypeName;
-                type.Description = typeViewModel.Description;
-
+                
                 type.DateCreated = DateTime.Now;
                 type.DateModified = type.DateCreated;
                 type.UserCreatedID = Auxiliaries.GetUserId(User);
@@ -69,8 +65,8 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", typeViewModel.PinGuid);
-            return View(typeViewModel);
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
+            return View(type);
         }
 
         // GET: Types/Edit/5

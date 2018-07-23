@@ -8,7 +8,7 @@
 <h2>Tipi</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Ustvari Novo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -36,9 +36,9 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TypeGuid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TypeGuid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TypeGuid })
+            @Html.ActionLink("Uredi", "Edit", new { id=item.TypeGuid }) |
+            @Html.ActionLink("Podrobnosti", "Details", new { id=item.TypeGuid }) |
+            @Html.ActionLink("Izbriši", "Delete", new { id=item.TypeGuid })
         </td>
     </tr>
 }

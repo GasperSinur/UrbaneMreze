@@ -12,7 +12,7 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid PinGuid { get; set; }
 
-        [Display(Name = "Ime")]
+        [Display(Name = "Ime Bucike")]
         [Required(ErrorMessage = "Vpišite ime!")]
         public string Name { get; set; }
 
@@ -49,7 +49,7 @@ namespace UrbaneMreze.Models
     {
         public Guid PinGuid { get; set; }
 
-        [Display(Name = "Ime")]
+        [Display(Name = "Ime Bucike")]
         [Required(ErrorMessage = "Vpišite ime!")]
         public string Name { get; set; }
 
@@ -70,7 +70,7 @@ namespace UrbaneMreze.Models
     {
         public Guid PinGuid { get; set; }
 
-        [Display(Name = "Ime")]
+        [Display(Name = "Ime Bucike")]
         [Required(ErrorMessage = "Vpišite ime!")]
         public string Name { get; set; }
 
