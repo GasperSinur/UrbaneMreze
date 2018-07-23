@@ -55,6 +55,7 @@ namespace UrbaneMreze.Controllers
             {
                 Models.Type type = new Models.Type();
                 type.TypeGuid = Guid.NewGuid();
+                type.PinGuid = typeViewModel.PinGuid;
                 type.TypeName = typeViewModel.TypeName;
                 type.Description = typeViewModel.Description;
 
@@ -97,6 +98,9 @@ namespace UrbaneMreze.Controllers
         {
             if (ModelState.IsValid)
             {
+                type.DateModified = DateTime.Now;
+                type.UserModifiedID = Auxiliaries.GetUserId(User);
+
                 db.Entry(type).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

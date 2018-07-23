@@ -25,12 +25,10 @@ namespace UrbaneMreze.Models
         public Double Latitude { get; set; }
 
         [Required(ErrorMessage = "Izberite lokacijo slike!")]
-        public String FilePath { get; set; }
+        public byte[] File { get; set; }
 
-        [Required(ErrorMessage = "Izberite Sliko!")]
         public byte[] Thumbnail { get; set; }
-
-
+        
         public String ContentType { get; set; }
 
         public DateTime DateCreated { get; set; }
@@ -42,9 +40,32 @@ namespace UrbaneMreze.Models
         public Guid UserModifiedID { get; set; }
     }
 
+    public class PhotoViewModel
+    {
+        public Guid PhotoGuid { get; set; }
+
+        [Required(ErrorMessage = "Izberite Lokacijo!")]
+        public Guid SpotGuid { get; set; }
+
+        public String Description { get; set; }
+
+        [Required(ErrorMessage = "Izberite Longitude!")]
+        public Double Longitude { get; set; }
+
+        [Required(ErrorMessage = "Izberite Latitude!")]
+        public Double Latitude { get; set; }
+
+        [Required(ErrorMessage = "Izberite lokacijo slike!")]
+        public HttpPostedFileBase File { get; set; }
+
+        public String ContentType { get; set; }
+    }
+
     public class PhotosDbContext : DbContext
     {
         public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<Spot> Spots { get; set; }
 
         public PhotosDbContext() : base("UrbaneMreze") { }
     }

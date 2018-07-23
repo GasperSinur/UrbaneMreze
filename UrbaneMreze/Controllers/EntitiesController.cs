@@ -55,6 +55,7 @@ namespace UrbaneMreze.Controllers
             {
                 Entity entity = new Entity();
                 entity.EntityGuid = Guid.NewGuid();
+                entity.TypeGuid = entityViewModel.TypeGuid;
                 entity.EntityName = entityViewModel.EntityName;
                 entity.Description = entityViewModel.Description;
 

@@ -54,6 +54,8 @@ namespace UrbaneMreze.Controllers
                 spot.SpotGuid = Guid.NewGuid();
                 spot.SpotName = spotViewModel.SpotName;
                 spot.Description = spotViewModel.Description;
+                spot.Longitude = spotViewModel.Longitude;
+                spot.Latitude = spotViewModel.Latitude;
 
                 spot.DateCreated = DateTime.Now;
                 spot.DateModified = spot.DateCreated;

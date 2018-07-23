@@ -201,6 +201,7 @@
     <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\PinsController.cs" />
     <Compile Include="Controllers\SpotsController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
@@ -210,6 +211,10 @@
     <Compile Include="Migrations\201807220804233_CommentsUpdate.cs" />
     <Compile Include="Migrations\201807220804233_CommentsUpdate.Designer.cs">
       <DependentUpon>201807220804233_CommentsUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807221534206_PhotosUpdate.cs" />
+    <Compile Include="Migrations\201807221534206_PhotosUpdate.Designer.cs">
+      <DependentUpon>201807221534206_PhotosUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -311,6 +316,11 @@
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Photos\Create.cshtml" />
+    <Content Include="Views\Photos\Delete.cshtml" />
+    <Content Include="Views\Photos\Details.cshtml" />
+    <Content Include="Views\Photos\Edit.cshtml" />
+    <Content Include="Views\Photos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,6 +341,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201807220804233_CommentsUpdate.resx">
       <DependentUpon>201807220804233_CommentsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807221534206_PhotosUpdate.resx">
+      <DependentUpon>201807221534206_PhotosUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

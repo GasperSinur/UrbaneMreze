@@ -1,14 +1,14 @@
-﻿@model UrbaneMreze.Models.Pin
+﻿@model UrbaneMreze.Models.PinAllViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Podrobnosti";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Podrobnosti</h2>
 
 <div>
-    <h4>Pin</h4>
+    <h4>Bucika</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,7 +24,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Icon)
+            @{
+                if (Model.Icon != null && Model.Icon.ContentLength > 0)
+                {
+                    @:<img src="@ViewBag.ImgSrc" width="100" />
+                }
+            }
         </dd>
 
         <dt>
@@ -78,6 +83,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PinGuid }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Uredi", "Edit", new { id = Model.PinGuid }) |
+    @Html.ActionLink("Nazaj na seznam", "Index")
 </p>

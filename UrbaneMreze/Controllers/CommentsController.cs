@@ -54,6 +54,7 @@ namespace UrbaneMreze.Controllers
             {
                 Comment comment = new Comment();
                 comment.CommentGuid = Guid.NewGuid();
+                comment.SpotGuid = commentViewModel.SpotGuid;
                 comment.Title = commentViewModel.Title;
                 comment.Text = commentViewModel.Text;
 

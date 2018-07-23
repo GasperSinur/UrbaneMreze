@@ -29,12 +29,32 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pin pins = db.Pins.Find(id);
-            if (pins == null)
+            Pin pin = db.Pins.Find(id);
+            if (pin == null)
             {
                 return HttpNotFound();
             }
-            return View(pins);
+
+            PinAllViewModel pinAllViewModel = new PinAllViewModel();
+            pinAllViewModel.PinGuid = pin.PinGuid;
+            pinAllViewModel.Name = pin.Name;
+            pinAllViewModel.Color = pin.Color;
+            pinAllViewModel.Description = pin.Description;
+            pinAllViewModel.DateCreated = pin.DateCreated;
+            pinAllViewModel.DateModified = pin.DateModified;
+            pinAllViewModel.UserCreatedID = pin.UserCreatedID;
+            pinAllViewModel.UserModifiedID = pin.UserModifiedID;
+
+            if (pin.Icon != null && pin.Icon.Length > 0)
+            {
+                pinAllViewModel.Icon = new MemoryPostedFile(pin.Icon);
+
+                var base64 = Convert.ToBase64String(pin.Icon);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrc = imgSrc;
+            }
+
+            return View(pinAllViewModel);
         }
 
         // GET: Pins/Create
@@ -68,7 +88,7 @@ namespace UrbaneMreze.Controllers
                 {
                     if (!Auxiliaries.ValidImageTypes.Contains(pinViewModel.Icon.ContentType))
                     {
-                        ModelState.AddModelError("Icon", "Choose an image in one of the following formats: GIF, JPG, or PNG.");
+                        ModelState.AddModelError("Icon", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
                     }
                     else
                     {
@@ -94,12 +114,28 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pin pins = db.Pins.Find(id);
-            if (pins == null)
+            Pin pin = db.Pins.Find(id);
+            if (pin == null)
             {
                 return HttpNotFound();
             }
-            return View(pins);
+
+            PinEditViewModel pinEditViewModel = new PinEditViewModel();
+            pinEditViewModel.PinGuid = pin.PinGuid;
+            pinEditViewModel.Name = pin.Name;
+            pinEditViewModel.Color = pin.Color;
+            pinEditViewModel.Description = pin.Description;
+            
+            if (pin.Icon != null && pin.Icon.Length > 0)
+            {
+                pinEditViewModel.Icon = new MemoryPostedFile(pin.Icon);
+
+                var base64 = Convert.ToBase64String(pin.Icon);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrc = imgSrc;
+            }
+
+            return View(pinEditViewModel);
         }
 
         // POST: Pins/Edit/5
@@ -107,15 +143,39 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PinGuid,Name,Icon,Color,Description")] Pin pins)
+        public ActionResult Edit([Bind(Include = "PinGuid,Name,Icon,Color,Description")] PinEditViewModel pinEditViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pins).State = EntityState.Modified;
+                Pin pin = db.Pins.Find(pinEditViewModel.PinGuid);
+                pin.Name = pinEditViewModel.Name;
+                pin.Color = pinEditViewModel.Color;
+                pin.Description = pinEditViewModel.Description;
+
+                pin.DateModified = DateTime.Now;
+                pin.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                // Handle the image
+                if (pinEditViewModel.Icon != null && pinEditViewModel.Icon.ContentLength > 0)
+                {
+                    if (!Auxiliaries.ValidImageTypes.Contains(pinEditViewModel.Icon.ContentType))
+                    {
+                        ModelState.AddModelError("Icon", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
+                    }
+                    else
+                    {
+                        using (var reader = new BinaryReader(pinEditViewModel.Icon.InputStream))
+                        {
+                            pin.Icon = reader.ReadBytes(pinEditViewModel.Icon.ContentLength);
+                        }
+                    }
+                }
+
+                db.Entry(pin).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pins);
+            return View(pinEditViewModel);
         }
 
         // GET: Pins/Delete/5
@@ -125,12 +185,32 @@ namespace UrbaneMreze.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pin pins = db.Pins.Find(id);
-            if (pins == null)
+            Pin pin = db.Pins.Find(id);
+            if (pin == null)
             {
                 return HttpNotFound();
             }
-            return View(pins);
+            
+            PinAllViewModel pinAllViewModel = new PinAllViewModel();
+            pinAllViewModel.PinGuid = pin.PinGuid;
+            pinAllViewModel.Name = pin.Name;
+            pinAllViewModel.Color = pin.Color;
+            pinAllViewModel.Description = pin.Description;
+            pinAllViewModel.DateCreated = pin.DateCreated;
+            pinAllViewModel.DateModified = pin.DateModified;
+            pinAllViewModel.UserCreatedID = pin.UserCreatedID;
+            pinAllViewModel.UserModifiedID = pin.UserModifiedID;
+
+            if (pin.Icon != null && pin.Icon.Length > 0)
+            {
+                pinAllViewModel.Icon = new MemoryPostedFile(pin.Icon);
+
+                var base64 = Convert.ToBase64String(pin.Icon);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrc = imgSrc;
+            }
+
+            return View(pinAllViewModel);
         }
 
         // POST: Pins/Delete/5
@@ -138,8 +218,8 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Pin pins = db.Pins.Find(id);
-            db.Pins.Remove(pins);
+            Pin pin = db.Pins.Find(id);
+            db.Pins.Remove(pin);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
