@@ -46,17 +46,12 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SpotName,Description,Longitude,Latitude")] SpotViewModel spotViewModel)
+        public ActionResult Create([Bind(Include = "SpotName,Description,Longitude,Latitude")] Spot spot)
         {
             if (ModelState.IsValid)
             {
-                Spot spot = new Spot();
                 spot.SpotGuid = Guid.NewGuid();
-                spot.SpotName = spotViewModel.SpotName;
-                spot.Description = spotViewModel.Description;
-                spot.Longitude = spotViewModel.Longitude;
-                spot.Latitude = spotViewModel.Latitude;
-
+                
                 spot.DateCreated = DateTime.Now;
                 spot.DateModified = spot.DateCreated;
                 spot.UserCreatedID = Auxiliaries.GetUserId(User);
@@ -67,7 +62,7 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(spotViewModel);
+            return View(spot);
         }
 
         // GET: Spots/Edit/5
@@ -90,15 +85,24 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,Description,Longitude,Latitude")] Spot spot)
+        public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,Description,Longitude,Latitude")] SpotEditViewModel spotEditViewModel)
         {
             if (ModelState.IsValid)
             {
+                Spot spot = db.Spots.Find(spotEditViewModel.SpotGuid);
+                spot.SpotName = spotEditViewModel.SpotName;
+                spot.Description = spotEditViewModel.Description;
+                spot.Longitude = spotEditViewModel.Longitude;
+                spot.Latitude = spotEditViewModel.Latitude;
+
+                spot.DateModified = DateTime.Now;
+                spot.UserModifiedID = Auxiliaries.GetUserId(User);
+
                 db.Entry(spot).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(spot);
+            return View(spotEditViewModel);
         }
 
         // GET: Spots/Delete/5

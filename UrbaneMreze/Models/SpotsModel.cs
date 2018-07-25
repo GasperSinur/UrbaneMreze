@@ -12,40 +12,57 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid SpotGuid { get; set; }
 
+        [Display(Name = "Ime Lokacije")]
         [Required(ErrorMessage = "Vpišite ime Lokacije!")]
         public String SpotName { get; set; }
 
+        [Display(Name = "Opis")]
+        [DataType(DataType.MultilineText)]
         public String Description { get; set; }
 
-        [Required]
+        [Display(Name = "Zemljepisna dolžina")]
+        [Required(ErrorMessage = "Vpišite zemljepisno dolžino!")]
         public Double Longitude { get; set; }
 
-        [Required]
+        [Display(Name = "Zemljepisna širina")]
+        [Required(ErrorMessage = "Vpišite zemljepisno širino!")]
         public Double Latitude { get; set; }
 
+        [Display(Name = "Datum nastanka")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; }
 
+        [Display(Name = "Datum spremembe")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateModified { get; set; }
 
+        [Display(Name = "Avtor")]
         public Guid UserCreatedID { get; set; }
 
+        [Display(Name = "Avtor spremembe")]
         public Guid UserModifiedID { get; set; }
     }
 
-    public class SpotViewModel
+    public class SpotEditViewModel
     {
-        [Key]
         public Guid SpotGuid { get; set; }
 
+        [Display(Name = "Ime Lokacije")]
         [Required(ErrorMessage = "Vpišite ime Lokacije!")]
         public String SpotName { get; set; }
 
+        [Display(Name = "Opis")]
+        [DataType(DataType.MultilineText)]
         public String Description { get; set; }
 
-        [Required]
+        [Display(Name = "Zemljepisna dolžina")]
+        [Required(ErrorMessage = "Vpišite zemljepisno dolžino!")]
         public Double Longitude { get; set; }
 
-        [Required]
+        [Display(Name = "Zemljepisna širina")]
+        [Required(ErrorMessage = "Vpišite zemljepisno širino!")]
         public Double Latitude { get; set; }
     }
 
