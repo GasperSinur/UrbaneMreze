@@ -90,10 +90,15 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TypeGuid,TypeName,Description,PinGuid")] Models.Type type)
+        public ActionResult Edit([Bind(Include = "TypeGuid,TypeName,Description,PinGuid")] TypeEditViewModel typeEditViewModel)
         {
             if (ModelState.IsValid)
             {
+                Models.Type type = db.Types.Find(typeEditViewModel.TypeGuid);
+                type.TypeName = typeEditViewModel.TypeName;
+                type.Description = typeEditViewModel.Description;
+                type.PinGuid = typeEditViewModel.PinGuid;
+
                 type.DateModified = DateTime.Now;
                 type.UserModifiedID = Auxiliaries.GetUserId(User);
 
@@ -101,8 +106,8 @@ namespace UrbaneMreze.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", type.PinGuid);
-            return View(type);
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", typeEditViewModel.PinGuid);
+            return View(typeEditViewModel);
         }
 
         // GET: Types/Delete/5

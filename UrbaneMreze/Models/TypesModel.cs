@@ -42,6 +42,24 @@ namespace UrbaneMreze.Models
         public Guid UserModifiedID { get; set; }
     }
 
+    public class TypeEditViewModel
+    {
+        public Guid TypeGuid { get; set; }
+
+        [Display(Name = "Ime Tipa")]
+        [Required(ErrorMessage = "Vpišite ime tipa!")]
+        public String TypeName { get; set; }
+
+        [Display(Name = "Opis")]
+        [DataType(DataType.MultilineText)]
+        public String Description { get; set; }
+
+        [Display(Name = "Bucika")]
+        [Required(ErrorMessage = "Izberite Buciko!")]
+        public Guid PinGuid { get; set; }
+        public virtual Pin Pin { get; set; }
+    }
+
     public class TypesDbContext : DbContext
     {
         public DbSet<Type> Types { get; set; }

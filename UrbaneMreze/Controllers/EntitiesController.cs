@@ -49,16 +49,12 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TypeGuid,EntityName,Description")] EntityViewModel entityViewModel)
+        public ActionResult Create([Bind(Include = "TypeGuid,EntityName,Description")] Entity entity)
         {
             if (ModelState.IsValid)
             {
-                Entity entity = new Entity();
                 entity.EntityGuid = Guid.NewGuid();
-                entity.TypeGuid = entityViewModel.TypeGuid;
-                entity.EntityName = entityViewModel.EntityName;
-                entity.Description = entityViewModel.Description;
-
+                
                 entity.DateCreated = DateTime.Now;
                 entity.DateModified = entity.DateCreated;
                 entity.UserCreatedID = Auxiliaries.GetUserId(User);
@@ -69,8 +65,8 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entityViewModel.TypeGuid);
-            return View(entityViewModel);
+            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entity.TypeGuid);
+            return View(entity);
         }
 
         // GET: Entities/Edit/5
@@ -94,16 +90,24 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EntityGuid,TypeGuid,EntityName,Description")] Entity entity)
+        public ActionResult Edit([Bind(Include = "EntityGuid,TypeGuid,EntityName,Description")] EntityEditViewModel entityEditViewModel)
         {
             if (ModelState.IsValid)
             {
+                Entity entity = db.Entities.Find(entityEditViewModel.EntityGuid);
+                entity.TypeGuid = entityEditViewModel.TypeGuid;
+                entity.EntityName = entityEditViewModel.EntityName;
+                entity.Description = entityEditViewModel.Description;
+
+                entity.DateModified = DateTime.Now;
+                entity.UserModifiedID = Auxiliaries.GetUserId(User);
+
                 db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entity.TypeGuid);
-            return View(entity);
+            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entityEditViewModel.TypeGuid);
+            return View(entityEditViewModel);
         }
 
         // GET: Entities/Delete/5
