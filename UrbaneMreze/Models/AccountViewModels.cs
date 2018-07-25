@@ -6,7 +6,7 @@ namespace UrbaneMreze.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "E-pošta")]
         public string Email { get; set; }
     }
 

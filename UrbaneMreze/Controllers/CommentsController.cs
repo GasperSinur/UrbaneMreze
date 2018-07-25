@@ -48,15 +48,11 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SpotGuid,Title,Text")] CommentViewModel commentViewModel)
+        public ActionResult Create([Bind(Include = "SpotGuid,Title,Text")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                Comment comment = new Comment();
                 comment.CommentGuid = Guid.NewGuid();
-                comment.SpotGuid = commentViewModel.SpotGuid;
-                comment.Title = commentViewModel.Title;
-                comment.Text = commentViewModel.Text;
 
                 comment.DateCreated = DateTime.Now;
                 comment.DateModified = comment.DateCreated;
@@ -68,8 +64,8 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", commentViewModel.SpotGuid);
-            return View(commentViewModel);
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", comment.SpotGuid);
+            return View(comment);
         }
 
         // GET: Comments/Edit/5
@@ -93,16 +89,24 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,Title,Text")] Comment comment)
+        public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,Title,Text")] CommentEditViewModel commentEditViewModel)
         {
             if (ModelState.IsValid)
             {
+                Comment comment = db.Comments.Find(commentEditViewModel.CommentGuid);
+                comment.SpotGuid = commentEditViewModel.SpotGuid;
+                comment.Title = commentEditViewModel.Title;
+                comment.Text = commentEditViewModel.Text;
+                
+                comment.DateModified = DateTime.Now;
+                comment.UserModifiedID = Auxiliaries.GetUserId(User);
+
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", comment.SpotGuid);
-            return View(comment);
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", commentEditViewModel.SpotGuid);
+            return View(commentEditViewModel);
         }
 
         // GET: Comments/Delete/5
