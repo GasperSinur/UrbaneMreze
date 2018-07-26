@@ -49,7 +49,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SpotGuid,Description,Longitude,Latitude,File")] PhotoViewModel photoViewModel)
+        public ActionResult Create([Bind(Include = "PhotoGuid,SpotGuid,Description,Longitude,Latitude,File")] PhotoViewModel photoViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -65,12 +65,12 @@ namespace UrbaneMreze.Controllers
                 photo.UserCreatedID = Auxiliaries.GetUserId(User);
                 photo.UserModifiedID = Auxiliaries.GetUserId(User);
 
-                // Handle the photo
+                // Handle the icon
                 if (photoViewModel.File != null && photoViewModel.File.ContentLength > 0)
                 {
                     if (!Auxiliaries.ValidImageTypes.Contains(photoViewModel.File.ContentType))
                     {
-                        ModelState.AddModelError("Icon", "Choose an image in one of the following formats: GIF, JPG, or PNG.");
+                        ModelState.AddModelError("File", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
                     }
                     else
                     {
@@ -104,7 +104,24 @@ namespace UrbaneMreze.Controllers
                 return HttpNotFound();
             }
             ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photo.SpotGuid);
-            return View(photo);
+
+            PhotoEditViewModel photoEditViewModel = new PhotoEditViewModel();
+            photoEditViewModel.PhotoGuid = photo.PhotoGuid;
+            photoEditViewModel.SpotGuid = photo.SpotGuid;
+            photoEditViewModel.Description = photo.Description;
+            photoEditViewModel.Longitude = photo.Longitude;
+            photoEditViewModel.Latitude = photo.Latitude;
+
+            if (photo.File != null && photo.File.Length > 0)
+            {
+                photoEditViewModel.File = new MemoryPostedFile(photo.File);
+
+                var base64 = Convert.ToBase64String(photo.File);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrc = imgSrc;
+            }
+
+            return View(photoEditViewModel);
         }
 
         // POST: Photos/Edit/5
@@ -112,16 +129,43 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PhotoGuid,SpotGuid,Description,Longitude,Latitude,File,Thumbnail,ContentType,DateCreated,DateModified,UserCreatedID,UserModifiedID")] Photo photo)
+        public ActionResult Edit([Bind(Include = "PhotoGuid,SpotGuid,Description,Longitude,Latitude,File")] PhotoEditViewModel photoEditViewModel)
         {
             if (ModelState.IsValid)
             {
+                Photo photo = db.Photos.Find(photoEditViewModel.PhotoGuid);
+                photo.PhotoGuid = photoEditViewModel.PhotoGuid;
+                photo.SpotGuid = photoEditViewModel.SpotGuid;
+                photo.Description = photoEditViewModel.Description;
+                photo.Longitude = photoEditViewModel.Longitude;
+                photo.Latitude = photoEditViewModel.Latitude;
+
+                photo.DateModified = DateTime.Now;
+                photo.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                // Handle the photo
+                if (photoEditViewModel.File != null && photoEditViewModel.File.ContentLength > 0)
+                {
+                    if (!Auxiliaries.ValidImageTypes.Contains(photoEditViewModel.File.ContentType))
+                    {
+                        ModelState.AddModelError("File", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
+                    }
+                    else
+                    {
+                        using (var reader = new BinaryReader(photoEditViewModel.File.InputStream))
+                        {
+                            photo.File = reader.ReadBytes(photoEditViewModel.File.ContentLength);
+                            photo.Thumbnail = photo.File;
+                        }
+                    }
+                }
+
                 db.Entry(photo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photo.SpotGuid);
-            return View(photo);
+            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photoEditViewModel.SpotGuid);
+            return View(photoEditViewModel);
         }
 
         // GET: Photos/Delete/5
