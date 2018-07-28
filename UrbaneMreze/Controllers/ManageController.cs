@@ -55,12 +55,12 @@ namespace UrbaneMreze.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Vaše geslo je bilo spremenjeno."
+                : message == ManageMessageId.SetPasswordSuccess ? "Vaše geslo je bilo nastavljeno."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Vaš dvo-faktorski ponudnik preverjanja je bil nastavljen."
+                : message == ManageMessageId.Error ? "Prišlo je do napake."
+                : message == ManageMessageId.AddPhoneSuccess ? "Vaša telefonska številka je bila dodana."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Vaša telefonska številka je bila odstranjena."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -123,7 +123,7 @@ namespace UrbaneMreze.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Your security code is: " + code
+                    Body = "Vaša varnostna koda je: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -190,7 +190,7 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", "Težava pri preverjanju telefona");
             return View(model);
         }
 
@@ -281,8 +281,8 @@ namespace UrbaneMreze.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.RemoveLoginSuccess ? "Zunanja prijava je bila odstranjena."
+                : message == ManageMessageId.Error ? "Prišlo je do napake."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)

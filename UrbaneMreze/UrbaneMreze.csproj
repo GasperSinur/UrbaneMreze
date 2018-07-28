@@ -220,6 +220,10 @@
     <Compile Include="Migrations\201807251403142_PhotosUpdate1.Designer.cs">
       <DependentUpon>201807251403142_PhotosUpdate1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807261203076_SpotsEntitiesUpdate.cs" />
+    <Compile Include="Migrations\201807261203076_SpotsEntitiesUpdate.Designer.cs">
+      <DependentUpon>201807261203076_SpotsEntitiesUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
@@ -351,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807251403142_PhotosUpdate1.resx">
       <DependentUpon>201807251403142_PhotosUpdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807261203076_SpotsEntitiesUpdate.resx">
+      <DependentUpon>201807261203076_SpotsEntitiesUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

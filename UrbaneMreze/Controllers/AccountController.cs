@@ -86,7 +86,7 @@ namespace UrbaneMreze.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Neveljaven poskus prijave.");
                     return View(model);
             }
         }
@@ -129,7 +129,7 @@ namespace UrbaneMreze.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid code.");
+                    ModelState.AddModelError("", "Neveljavna koda.");
                     return View(model);
             }
         }
