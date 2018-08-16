@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-style navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,16 +17,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Urbane Mreže", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href='@Url.Action("Index", "Home")' class="logo">
+                    <img src='@Url.Content("~/Images/UrbaneMrezeLogo.png")' />
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Bucike", "Index", "Pins")</li>
-                    <li>@Html.ActionLink("Tipi", "Index", "Types")</li>
-                    <li>@Html.ActionLink("Entitete", "Index", "Entities")</li>
-                    <li>@Html.ActionLink("Lokacije", "Index", "Spots")</li>
-                    <li>@Html.ActionLink("Komentarji", "Index", "Comments")</li>
-                    <li>@Html.ActionLink("Fotografije", "Index", "Photos")</li>
+                    <li>@Html.ActionLink("O aplikaciji", "About", "Home")</li>
+                    <li>@Html.ActionLink("Aktivnosti", "Activities", "Home")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,6 +33,18 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+
+        <div class="row">
+            <div class="col-sm-12" id="temporary">
+                @Html.ActionLink("Lokacije", "Index", "Spots")
+                @Html.ActionLink("Bucike", "Index", "Pins")
+                @Html.ActionLink("Tipi", "Index", "Types")
+                @Html.ActionLink("Entitete", "Index", "Entities")
+                @Html.ActionLink("Komentarji", "Index", "Comments")
+                @Html.ActionLink("Fotografije", "Index", "Photos")
+            </div>
+        </div>
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Urbane Mreže</p>

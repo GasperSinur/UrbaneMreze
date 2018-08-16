@@ -5,8 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 15px 15px 0 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -28,4 +27,55 @@ textarea {
     width: 400px;
     padding: 10px;
     height: 40px;
+}
+
+.navbar-style {
+  font-weight: bold;
+}
+
+.logo img{
+    height: 40px;
+    padding: 0 10px;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.about-image{
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+@media(max-width: 500px){
+    .about-image {
+        max-width: 300px;
+    }
+}
+
+#map {
+    height: 500px;
+    border: 2px solid black;
+}
+
+#temporary {
+    border: 2px solid black;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    background-color: black;
+}
+
+#temporary a{
+    color: #75ae1d;
+    padding: 0 5px;
+}
+
+#temporary a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.infoWindow-title{
+    font-weight: bold;
 }

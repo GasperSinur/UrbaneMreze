@@ -34,7 +34,28 @@ namespace UrbaneMreze.Controllers
             {
                 return HttpNotFound();
             }
-            return View(photo);
+
+            PhotoAllViewModel photoAllViewModel = new PhotoAllViewModel();
+            photoAllViewModel.PhotoGuid = photo.PhotoGuid;
+            photoAllViewModel.SpotGuid = photo.SpotGuid;
+            photoAllViewModel.Description = photo.Description;
+            photoAllViewModel.Longitude = photo.Longitude;
+            photoAllViewModel.Latitude = photo.Latitude;
+            photoAllViewModel.DateCreated = photo.DateCreated;
+            photoAllViewModel.DateModified = photo.DateModified;
+            photoAllViewModel.UserCreatedID = photo.UserCreatedID;
+            photoAllViewModel.UserModifiedID = photo.UserModifiedID;
+
+            if (photo.File != null && photo.File.Length > 0)
+            {
+                photoAllViewModel.File = new MemoryPostedFile(photo.File);
+
+                var base64 = Convert.ToBase64String(photo.File);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrc = imgSrc;
+            }
+
+            return View(photoAllViewModel);
         }
 
         // GET: Photos/Create

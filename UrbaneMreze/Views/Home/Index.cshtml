@@ -2,12 +2,73 @@
 @{
     ViewBag.Title = "Domov";
 }
-
+<?php echo "test"; ?>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-span-12">
-            
-
+        <div class="col-sm-6">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SpotName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpotName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Več", "Details", new { id = item.SpotGuid })
+                    </td>
+                </tr>
+                }
+            </table>
         </div>
+        <div id="map" class="col-sm-6"></div>
+        
+        <script>
+            var markers = @Html.Raw(@ViewBag.Markers);
+            function initMap() { 
+                var mapOptions = {  
+                    center: new google.maps.LatLng(45.8010824, 15.1710089),  
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };  
+                var infoWindow = new google.maps.InfoWindow();  
+                var map = new google.maps.Map(document.getElementById("map"), mapOptions);  
+                for (i = 0; i < markers.length; i++) {  
+                    var data = markers[i] 
+                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);  
+                    var marker = new google.maps.Marker({  
+                        position: myLatlng,  
+                        map: map,  
+                        title: data.title  
+                    });  
+                    (function (marker, data) {  
+                        google.maps.event.addListener(marker, "click", function (e) {  
+                            infoWindow.setContent(
+                                "<div class='infoWindow'><span class='infoWindow-title'>" + data.title +"</span><br/><p>"+ data.description+"</p></div>"
+                            );  
+                            infoWindow.open(map, marker);  
+                        });  
+                    })(marker, data);
+                }  
+            }  
+        </script>
+
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEAiYQrITQJClN12bmTuXXF4AQCkkiCRk&callback=initMap">
+        </script>
+
     </div>
 </div>
