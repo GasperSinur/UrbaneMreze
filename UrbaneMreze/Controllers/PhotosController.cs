@@ -37,7 +37,7 @@ namespace UrbaneMreze.Controllers
 
             PhotoAllViewModel photoAllViewModel = new PhotoAllViewModel();
             photoAllViewModel.PhotoGuid = photo.PhotoGuid;
-            photoAllViewModel.SpotGuid = photo.SpotGuid;
+            photoAllViewModel.Spot = photo.Spot;
             photoAllViewModel.Description = photo.Description;
             photoAllViewModel.Longitude = photo.Longitude;
             photoAllViewModel.Latitude = photo.Latitude;
@@ -86,12 +86,15 @@ namespace UrbaneMreze.Controllers
                 photo.UserCreatedID = Auxiliaries.GetUserId(User);
                 photo.UserModifiedID = Auxiliaries.GetUserId(User);
 
+                ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photoViewModel.SpotGuid);
+
                 // Handle the icon
                 if (photoViewModel.File != null && photoViewModel.File.ContentLength > 0)
                 {
                     if (!Auxiliaries.ValidImageTypes.Contains(photoViewModel.File.ContentType))
                     {
                         ModelState.AddModelError("File", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
+                        return View(photoViewModel);
                     }
                     else
                     {
@@ -108,7 +111,6 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photoViewModel.SpotGuid);
             return View(photoViewModel);
         }
 
@@ -156,7 +158,7 @@ namespace UrbaneMreze.Controllers
             {
                 Photo photo = db.Photos.Find(photoEditViewModel.PhotoGuid);
                 photo.PhotoGuid = photoEditViewModel.PhotoGuid;
-                photo.SpotGuid = photoEditViewModel.SpotGuid;
+                photo.Spot = photoEditViewModel.Spot;
                 photo.Description = photoEditViewModel.Description;
                 photo.Longitude = photoEditViewModel.Longitude;
                 photo.Latitude = photoEditViewModel.Latitude;
@@ -164,12 +166,23 @@ namespace UrbaneMreze.Controllers
                 photo.DateModified = DateTime.Now;
                 photo.UserModifiedID = Auxiliaries.GetUserId(User);
 
+                ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photoEditViewModel.SpotGuid);
+
                 // Handle the photo
                 if (photoEditViewModel.File != null && photoEditViewModel.File.ContentLength > 0)
                 {
                     if (!Auxiliaries.ValidImageTypes.Contains(photoEditViewModel.File.ContentType))
                     {
                         ModelState.AddModelError("File", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
+                        if (photo.File != null && photo.File.Length > 0)
+                        {
+                            photoEditViewModel.File = new MemoryPostedFile(photo.File);
+
+                            var base64 = Convert.ToBase64String(photo.File);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            ViewBag.ImgSrc = imgSrc;
+                        }
+                        return View(photoEditViewModel);
                     }
                     else
                     {
@@ -185,7 +198,7 @@ namespace UrbaneMreze.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName", photoEditViewModel.SpotGuid);
+            
             return View(photoEditViewModel);
         }
 
@@ -201,7 +214,28 @@ namespace UrbaneMreze.Controllers
             {
                 return HttpNotFound();
             }
-            return View(photo);
+
+            PhotoAllViewModel photoAllViewModel = new PhotoAllViewModel();
+            photoAllViewModel.PhotoGuid = photo.PhotoGuid;
+            photoAllViewModel.Spot = photo.Spot;
+            photoAllViewModel.Description = photo.Description;
+            photoAllViewModel.Longitude = photo.Longitude;
+            photoAllViewModel.Latitude = photo.Latitude;
+            photoAllViewModel.DateCreated = photo.DateCreated;
+            photoAllViewModel.DateModified = photo.DateModified;
+            photoAllViewModel.UserCreatedID = photo.UserCreatedID;
+            photoAllViewModel.UserModifiedID = photo.UserModifiedID;
+
+            if (photo.File != null && photo.File.Length > 0)
+            {
+                photoAllViewModel.File = new MemoryPostedFile(photo.File);
+
+                var base64 = Convert.ToBase64String(photo.File);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrc = imgSrc;
+            }
+
+            return View(photoAllViewModel);
         }
 
         // POST: Photos/Delete/5

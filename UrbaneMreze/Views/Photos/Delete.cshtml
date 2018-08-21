@@ -1,4 +1,4 @@
-﻿@model UrbaneMreze.Models.Photo
+﻿@model UrbaneMreze.Models.PhotoAllViewModel
 
 @{
     ViewBag.Title = "Izbriši";
@@ -49,7 +49,12 @@
         </dt>
 
         <dd>
-            
+            @{
+                if (Model.File != null && Model.File.ContentLength > 0)
+                {
+                    @:<img src="@ViewBag.ImgSrc" width="100" />
+                }
+            }
         </dd>
 
         <dt>

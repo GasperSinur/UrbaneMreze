@@ -89,6 +89,7 @@ namespace UrbaneMreze.Controllers
                     if (!Auxiliaries.ValidImageTypes.Contains(pinViewModel.Icon.ContentType))
                     {
                         ModelState.AddModelError("Icon", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
+                        return View(pinViewModel);
                     }
                     else
                     {
@@ -161,6 +162,15 @@ namespace UrbaneMreze.Controllers
                     if (!Auxiliaries.ValidImageTypes.Contains(pinEditViewModel.Icon.ContentType))
                     {
                         ModelState.AddModelError("Icon", "Izberite sliko, ki je v enem od naštetih formatov: GIF, JPG, ali PNG.");
+                        if (pin.Icon != null && pin.Icon.Length > 0)
+                        {
+                            pinEditViewModel.Icon = new MemoryPostedFile(pin.Icon);
+
+                            var base64 = Convert.ToBase64String(pin.Icon);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            ViewBag.ImgSrc = imgSrc;
+                        }
+                        return View(pinEditViewModel);
                     }
                     else
                     {

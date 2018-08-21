@@ -54,8 +54,39 @@ textarea {
 }
 
 #map {
-    height: 500px;
     border: 2px solid black;
+}
+
+.map-index{
+    height: 500px;
+}
+
+.map-details {
+    height: 400px;
+}
+
+.details-field {
+    margin-bottom: 30px;
+}
+
+@media(max-width: 767px) {
+    .padding-details {
+        padding: 0 20px;
+    }
+}
+
+.comments{
+    border: 2px solid black;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.comment {
+    border-right: 1px solid black;
+}
+
+.comment-login{
+    text-align: center;
 }
 
 #temporary {

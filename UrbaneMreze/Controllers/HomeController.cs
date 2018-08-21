@@ -8,12 +8,15 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
+using System.Dynamic;
 
 namespace UrbaneMreze.Controllers
 {
     public class HomeController : Controller
     {
         private SpotsDbContext dbSpots = new SpotsDbContext();
+        private CommentsDbContext dbComments = new CommentsDbContext();
+        private PhotosDbContext dbPhotos = new PhotosDbContext();
 
         public ActionResult Index()
         {
@@ -58,6 +61,10 @@ namespace UrbaneMreze.Controllers
             MarkerString += "}";
             
             ViewBag.Marker = MarkerString;
+
+            var comments = dbComments.Comments.Where(x => x.SpotGuid == id.Value);
+
+            ViewBag.Comments = comments;
 
             return View(spot);
         }
