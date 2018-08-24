@@ -22,11 +22,31 @@ textarea {
     max-width: 280px;
 }
 
-.my-file-upload {
-    max-width: 400px;
-    width: 400px;
-    padding: 10px;
-    height: 40px;
+/* LAYOUT */
+
+.navbar-inverse .navbar-brand {
+  color: #75ae1d;
+}
+
+.navbar-inverse .navbar-text {
+  color: #75ae1d;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #75ae1d;
+}
+
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  color: #75ae1d;
+  }
+}
+.navbar-inverse .navbar-link {
+  color: #75ae1d;
+}
+
+.navbar-inverse .btn-link {
+  color: #75ae1d;
 }
 
 .navbar-style {
@@ -38,20 +58,8 @@ textarea {
     padding: 0 10px;
 }
 
-.bold-text {
-    font-weight: bold;
-}
 
-.about-image{
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-@media(max-width: 500px){
-    .about-image {
-        max-width: 300px;
-    }
-}
+/* HOME/INDEX */
 
 #map {
     border: 2px solid black;
@@ -61,12 +69,19 @@ textarea {
     height: 500px;
 }
 
+
+/* HOME/DETAILS */
+
 .map-details {
     height: 400px;
 }
 
 .details-field {
     margin-bottom: 30px;
+}
+
+.details-photo{
+    width: 200px;
 }
 
 @media(max-width: 767px) {
@@ -89,6 +104,36 @@ textarea {
     text-align: center;
 }
 
+
+/* HOME/ABOUT */
+
+.about-image{
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+@media(max-width: 500px){
+    .about-image {
+        max-width: 300px;
+    }
+}
+
+
+/* GENERAL */
+
+.bold-text {
+    font-weight: bold;
+}
+
+.my-file-upload {
+    max-width: 400px;
+    width: 400px;
+    padding: 10px;
+    height: 40px;
+}
+
+
+/*TEMPORARY*/
 #temporary {
     border: 2px solid black;
     margin-top: 20px;
@@ -105,8 +150,4 @@ textarea {
 #temporary a:hover{
     text-decoration: none;
     color: white;
-}
-
-.infoWindow-title{
-    font-weight: bold;
 }

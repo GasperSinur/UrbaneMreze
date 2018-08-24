@@ -57,7 +57,7 @@
                     (function (marker, data) {  
                         google.maps.event.addListener(marker, "click", function (e) {  
                             infoWindow.setContent(
-                                "<div class='infoWindow'><span class='infoWindow-title'>" + data.title + "</span><br/><p>" + data.description + "</p><p><a href='https://www.google.com/maps/?q=" + data.lat + "," + data.lng + "' target='_blank'>Prikaži v Google Zemljevidih</a></p></div>"
+                                "<div class='infoWindow'><span class='bold-text'>" + data.title + "</span><br/><p>" + data.description + "</p><p><a href='https://www.google.com/maps/?q=" + data.lat + "," + data.lng + "' target='_blank'>Prikaži v Google Zemljevidih</a></p></div>"
                             );
                             infoWindow.open(map, marker);  
                         });  

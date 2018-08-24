@@ -1,5 +1,5 @@
 ﻿@model UrbaneMreze.Models.Spot
-@using Microsoft.AspNet.Identity
+
 @{
     ViewBag.Title = "Podrobnosti";
 }
@@ -68,6 +68,12 @@
 
             <div class="col-sm-6 details-field">
                 <h4>Fotografija</h4>
+                @foreach (var item in @ViewBag.Photos) {
+                    <div class="col-sm-6">    
+                        <img src="@item.Description" class="details-photo" />
+                        <p><span class="bold-text">Datum nastanka: </span>@item.DateCreated</p>
+                    </div>
+                }
             </div>
         </div>
 
@@ -131,7 +137,7 @@
             (function (marker, markerDetails) {
                 google.maps.event.addListener(marker, "click", function (e) {
                     infoWindow.setContent(
-                        "<div class='infoWindow'><span class='infoWindow-title'>" + markerDetails.title + "</span><br/><p>" + markerDetails.description + "</p><p><a href='https://www.google.com/maps/?q="+markerDetails.lat+","+markerDetails.lng+"' target='_blank'>Prikaži v Google Zemljevidih</a></p></div>"
+                        "<div class='infoWindow'><span class='bold-text'>" + markerDetails.title + "</span><br/><p>" + markerDetails.description + "</p><p><a href='https://www.google.com/maps/?q="+markerDetails.lat+","+markerDetails.lng+"' target='_blank'>Prikaži v Google Zemljevidih</a></p></div>"
                     );
                     infoWindow.open(map, marker);
                 });

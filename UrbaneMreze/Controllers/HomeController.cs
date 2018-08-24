@@ -63,8 +63,21 @@ namespace UrbaneMreze.Controllers
             ViewBag.Marker = MarkerString;
 
             var comments = dbComments.Comments.Where(x => x.SpotGuid == id.Value);
+            var photos = dbPhotos.Photos.Where(x => x.SpotGuid == id.Value);
 
             ViewBag.Comments = comments;
+
+            foreach (var item in photos)
+            {
+                if (item.File != null && item.File.Length > 0)
+                {
+                    var base64 = Convert.ToBase64String(item.File);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    item.Description = imgSrc;
+                }
+            }
+
+            ViewBag.Photos = photos;
 
             return View(spot);
         }
