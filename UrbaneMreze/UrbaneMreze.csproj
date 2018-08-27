@@ -224,6 +224,10 @@
     <Compile Include="Migrations\201807261203076_SpotsEntitiesUpdate.Designer.cs">
       <DependentUpon>201807261203076_SpotsEntitiesUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808271117091_SpotsTypesUpdate.cs" />
+    <Compile Include="Migrations\201808271117091_SpotsTypesUpdate.Designer.cs">
+      <DependentUpon>201808271117091_SpotsTypesUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
@@ -232,7 +236,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhotosModel.cs" />
     <Compile Include="Models\PinsModel.cs" />
-    <Compile Include="Models\SpotsEntitiesModel.cs" />
+    <Compile Include="Models\SpotsTypesModel.cs" />
     <Compile Include="Models\SpotsModel.cs" />
     <Compile Include="Models\TypesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -362,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807261203076_SpotsEntitiesUpdate.resx">
       <DependentUpon>201807261203076_SpotsEntitiesUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808271117091_SpotsTypesUpdate.resx">
+      <DependentUpon>201808271117091_SpotsTypesUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

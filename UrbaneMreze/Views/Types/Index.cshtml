@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Pin.Name)
+            @Html.DisplayNameFor(model => model.Entity.EntityName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TypeName)
@@ -27,7 +27,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Pin.Name)
+            @Html.DisplayFor(modelItem => item.Entity.EntityName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TypeName)
@@ -36,9 +36,9 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Uredi", "Edit", new { id=item.TypeGuid }) |
-            @Html.ActionLink("Podrobnosti", "Details", new { id=item.TypeGuid }) |
-            @Html.ActionLink("Izbriši", "Delete", new { id=item.TypeGuid })
+            @Html.ActionLink("Uredi", "Edit", new { id = item.TypeGuid }) |
+            @Html.ActionLink("Podrobnosti", "Details", new { id = item.TypeGuid }) |
+            @Html.ActionLink("Izbriši", "Delete", new { id = item.TypeGuid })
         </td>
     </tr>
 }

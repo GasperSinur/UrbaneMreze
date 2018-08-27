@@ -5,14 +5,14 @@ namespace UrbaneMreze.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<UrbaneMreze.Models.SpotsEntitiesDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<UrbaneMreze.Models.SpotsTypesDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(UrbaneMreze.Models.SpotsEntitiesDbContext context)
+        protected override void Seed(UrbaneMreze.Models.SpotsTypesDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

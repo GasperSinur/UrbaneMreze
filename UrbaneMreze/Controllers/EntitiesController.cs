@@ -18,7 +18,7 @@ namespace UrbaneMreze.Controllers
         // GET: Entities
         public ActionResult Index()
         {
-            var entities = db.Entities.Include(e => e.Type);
+            var entities = db.Entities.Include(e => e.Pin);
             return View(entities.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace UrbaneMreze.Controllers
         // GET: Entities/Create
         public ActionResult Create()
         {
-            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName");
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TypeGuid,EntityName,Description")] Entity entity)
+        public ActionResult Create([Bind(Include = "PinGuid,EntityName,Description")] Entity entity)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace UrbaneMreze.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entity.TypeGuid);
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", entity.PinGuid);
             return View(entity);
         }
 
@@ -81,7 +81,7 @@ namespace UrbaneMreze.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entity.TypeGuid);
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", entity.PinGuid);
             return View(entity);
         }
 
@@ -90,12 +90,12 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EntityGuid,TypeGuid,EntityName,Description")] EntityEditViewModel entityEditViewModel)
+        public ActionResult Edit([Bind(Include = "EntityGuid,PinGuid,EntityName,Description")] EntityEditViewModel entityEditViewModel)
         {
             if (ModelState.IsValid)
             {
                 Entity entity = db.Entities.Find(entityEditViewModel.EntityGuid);
-                entity.TypeGuid = entityEditViewModel.TypeGuid;
+                entity.PinGuid = entityEditViewModel.PinGuid;
                 entity.EntityName = entityEditViewModel.EntityName;
                 entity.Description = entityEditViewModel.Description;
 
@@ -106,7 +106,7 @@ namespace UrbaneMreze.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TypeGuid = new SelectList(db.Types, "TypeGuid", "TypeName", entityEditViewModel.TypeGuid);
+            ViewBag.PinGuid = new SelectList(db.Pins, "PinGuid", "Name", entityEditViewModel.PinGuid);
             return View(entityEditViewModel);
         }
 

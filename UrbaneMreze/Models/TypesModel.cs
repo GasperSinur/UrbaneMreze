@@ -12,6 +12,11 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid TypeGuid { get; set; }
 
+        [Display(Name = "Entiteta")]
+        [Required(ErrorMessage = "Izberite Entiteto!")]
+        public Guid EntityGuid { get; set; }
+        public virtual Entity Entity { get; set; }
+
         [Display(Name = "Ime Tipa")]
         [Required(ErrorMessage = "Vpišite ime tipa!")]
         public String TypeName { get; set; }
@@ -19,11 +24,6 @@ namespace UrbaneMreze.Models
         [Display(Name = "Opis")]
         [DataType(DataType.MultilineText)]
         public String Description { get; set; }
-
-        [Display(Name = "Bucika")]
-        [Required(ErrorMessage = "Izberite Buciko!")]
-        public Guid PinGuid { get; set; }
-        public virtual Pin Pin { get; set; }
 
         [Display(Name = "Datum nastanka")]
         [DataType(DataType.DateTime)]
@@ -46,6 +46,11 @@ namespace UrbaneMreze.Models
     {
         public Guid TypeGuid { get; set; }
 
+        [Display(Name = "Entiteta")]
+        [Required(ErrorMessage = "Izberite Entiteto!")]
+        public Guid EntityGuid { get; set; }
+        public virtual Entity Entity { get; set; }
+
         [Display(Name = "Ime Tipa")]
         [Required(ErrorMessage = "Vpišite ime tipa!")]
         public String TypeName { get; set; }
@@ -54,17 +59,13 @@ namespace UrbaneMreze.Models
         [DataType(DataType.MultilineText)]
         public String Description { get; set; }
 
-        [Display(Name = "Bucika")]
-        [Required(ErrorMessage = "Izberite Buciko!")]
-        public Guid PinGuid { get; set; }
-        public virtual Pin Pin { get; set; }
     }
 
     public class TypesDbContext : DbContext
     {
         public DbSet<Type> Types { get; set; }
 
-        public DbSet<Pin> Pins { get; set; }
+        public DbSet<Entity> Entities { get; set; }
 
         public TypesDbContext() : base("UrbaneMreze") { }
     }

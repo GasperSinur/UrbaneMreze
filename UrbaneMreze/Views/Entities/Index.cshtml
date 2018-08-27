@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Type.TypeName)
+            @Html.DisplayNameFor(model => model.Pin.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EntityName)
@@ -27,7 +27,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Type.TypeName)
+            @Html.DisplayFor(modelItem => item.Pin.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EntityName)

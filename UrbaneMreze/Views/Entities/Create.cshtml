@@ -17,10 +17,10 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.TypeGuid, "Tip", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PinGuid, "Bucika", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TypeGuid", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeGuid, "", new { @class = "text-danger" })
+                @Html.DropDownList("PinGuid", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PinGuid, "", new { @class = "text-danger" })
             </div>
         </div>
 

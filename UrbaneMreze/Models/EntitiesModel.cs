@@ -12,10 +12,10 @@ namespace UrbaneMreze.Models
         [Key]
         public Guid EntityGuid { get; set; }
 
-        [Display(Name = "Tip")]
-        [Required(ErrorMessage = "Izberite Tip!")]
-        public Guid TypeGuid { get; set; }
-        public virtual Type Type { get; set; }
+        [Display(Name = "Bucika")]
+        [Required(ErrorMessage = "Izberite Buciko!")]
+        public Guid PinGuid { get; set; }
+        public virtual Pin Pin { get; set; }
 
         [Display(Name = "Ime Entitete")]
         [Required(ErrorMessage = "Vpišite ime entitete!")]
@@ -46,10 +46,10 @@ namespace UrbaneMreze.Models
     {
         public Guid EntityGuid { get; set; }
 
-        [Display(Name = "Tip")]
-        [Required(ErrorMessage = "Izberite Tip!")]
-        public Guid TypeGuid { get; set; }
-        public virtual Type Type { get; set; }
+        [Display(Name = "Bucika")]
+        [Required(ErrorMessage = "Izberite Buciko!")]
+        public Guid PinGuid { get; set; }
+        public virtual Pin Pin { get; set; }
 
         [Display(Name = "Ime Entitete")]
         [Required(ErrorMessage = "Vpišite ime entitete!")]
@@ -64,7 +64,7 @@ namespace UrbaneMreze.Models
     {
         public DbSet<Entity> Entities { get; set; }
 
-        public DbSet<Type> Types { get; set; }
+        public DbSet<Pin> Pins { get; set; }
 
         public EntitiesDbContext() : base("UrbaneMreze") { }
     }
