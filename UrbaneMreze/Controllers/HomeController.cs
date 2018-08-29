@@ -17,6 +17,7 @@ namespace UrbaneMreze.Controllers
         private SpotsDbContext dbSpots = new SpotsDbContext();
         private CommentsDbContext dbComments = new CommentsDbContext();
         private PhotosDbContext dbPhotos = new PhotosDbContext();
+        private PinsDbContext dbPins = new PinsDbContext();
 
         public ActionResult Index()
         {
@@ -37,7 +38,7 @@ namespace UrbaneMreze.Controllers
 
             MarkersString+= "]";
             ViewBag.Markers = MarkersString;
-            
+
             return View(dbSpots.Spots.ToList());
         }
 
@@ -62,9 +63,56 @@ namespace UrbaneMreze.Controllers
             
             ViewBag.Marker = MarkerString;
 
+            var spots = dbSpots.Spots.Where(x => x.SpotGuid == id.Value);
             var comments = dbComments.Comments.Where(x => x.SpotGuid == id.Value);
             var photos = dbPhotos.Photos.Where(x => x.SpotGuid == id.Value);
 
+            ViewBag.Spots = spots;
+            ViewBag.Comments = comments;
+
+            foreach (var item in photos)
+            {
+                if (item.File != null && item.File.Length > 0)
+                {
+                    var base64 = Convert.ToBase64String(item.File);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    item.Description = imgSrc;
+                }
+            }
+
+            ViewBag.Photos = photos;
+            
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details([Bind(Include = "SpotGuid,Title,Text")] Comment comment, Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spot spot = dbSpots.Spots.Find(id);
+            if (spot == null)
+            {
+                return HttpNotFound();
+            }
+
+            string MarkerString = "{";
+            MarkerString += String.Format("title: '{0}', ", spot.SpotName);
+            MarkerString += String.Format("lat: '{0}', ", spot.Latitude);
+            MarkerString += String.Format("lng: '{0}', ", spot.Longitude);
+            MarkerString += String.Format("description: '{0}'", spot.Description);
+            MarkerString += "}";
+
+            ViewBag.Marker = MarkerString;
+
+            var spots = dbSpots.Spots.Where(x => x.SpotGuid == id.Value);
+            var comments = dbComments.Comments.Where(x => x.SpotGuid == id.Value);
+            var photos = dbPhotos.Photos.Where(x => x.SpotGuid == id.Value);
+
+            ViewBag.Spots = spots;
             ViewBag.Comments = comments;
 
             foreach (var item in photos)
@@ -79,10 +127,23 @@ namespace UrbaneMreze.Controllers
 
             ViewBag.Photos = photos;
 
-            return View(spot);
+            if (ModelState.IsValid)
+            {
+                comment.CommentGuid = Guid.NewGuid();
+                comment.SpotGuid = id.Value;
+                comment.DateCreated = DateTime.Now;
+                comment.DateModified = comment.DateCreated;
+                comment.UserCreatedID = Auxiliaries.GetUserId(User);
+                comment.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                dbComments.Comments.Add(comment);
+                dbComments.SaveChanges();
+            }
+
+            return View();
         }
 
-        public ActionResult About()
+            public ActionResult About()
         {
             return View();
         }

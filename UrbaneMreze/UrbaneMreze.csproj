@@ -208,6 +208,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807220728132_InitialCreate.cs" />
+    <Compile Include="Migrations\201807220728132_InitialCreate.Designer.cs">
+      <DependentUpon>201807220728132_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201807220804233_CommentsUpdate.cs" />
     <Compile Include="Migrations\201807220804233_CommentsUpdate.Designer.cs">
       <DependentUpon>201807220804233_CommentsUpdate.cs</DependentUpon>
@@ -228,7 +232,6 @@
     <Compile Include="Migrations\201808271117091_SpotsTypesUpdate.Designer.cs">
       <DependentUpon>201808271117091_SpotsTypesUpdate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
     <Compile Include="Models\EntitiesModel.cs" />
@@ -251,7 +254,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\FisLogo.png" />
     <Content Include="Images\LogotipiVertikalno.jpg" />
+    <Content Include="Images\pinGreen.png" />
     <Content Include="Images\UrbaneMrezeLogo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -355,6 +360,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807220728132_InitialCreate.resx">
+      <DependentUpon>201807220728132_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807220804233_CommentsUpdate.resx">
       <DependentUpon>201807220804233_CommentsUpdate.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace UrbaneMreze.Models
 {
@@ -69,6 +70,11 @@ namespace UrbaneMreze.Models
         [Display(Name = "E-pošta")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Vnesite Uporabniško ime.")]
+        [Remote("IsUserNameUnique", "Account", ErrorMessage = "Izbrano Uporabniško ime je že zasedeno.")]
+        [Display(Name = "Uporabniško ime")]
+        public string UserName { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "{0} mora biti dolgo vsaj {2} znakov.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -77,7 +83,7 @@ namespace UrbaneMreze.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Potrdi geslo")]
-        [Compare("Password", ErrorMessage = "Geslo in Potrdi geslo se ne ujemata.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Geslo in Potrdi geslo se ne ujemata.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -96,7 +102,7 @@ namespace UrbaneMreze.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Potrdi geslo")]
-        [Compare("Password", ErrorMessage = "Geslo in Potrdi geslo se ne ujemata.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Geslo in Potrdi geslo se ne ujemata.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

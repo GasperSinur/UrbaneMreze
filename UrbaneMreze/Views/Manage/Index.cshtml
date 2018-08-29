@@ -30,13 +30,13 @@
         </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
+
              See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
+
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
+        @*
             <dt>Phone Number:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")
@@ -84,4 +84,16 @@
                 }*@
         </dd>
     </dl>
+
+    <div class="row">
+        <div class="col-sm-12" id="temporary">
+            @Html.ActionLink("Lokacije", "Index", "Spots")
+            @Html.ActionLink("Bucike", "Index", "Pins")
+            @Html.ActionLink("Tipi", "Index", "Types")
+            @Html.ActionLink("Entitete", "Index", "Entities")
+            @Html.ActionLink("Komentarji", "Index", "Comments")
+            @Html.ActionLink("Fotografije", "Index", "Photos")
+        </div>
+    </div>
+
 </div>

@@ -1,4 +1,4 @@
-﻿@model UrbaneMreze.Models.Spot
+﻿@model UrbaneMreze.Models.Comment
 
 @{
     ViewBag.Title = "Podrobnosti";
@@ -9,69 +9,89 @@
             <div id="map" class="col-sm-12 map-details"></div>
         </div>
         <div class="row">
-            <div class="col-sm-6 details-field">
+            <div class="col-sm-12 col-md-6 details-field">
                 <div class="row">
                     <div class="col-sm-12">
                         <h4>Podrobnosti</h4>
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.SpotName)
-                            </dt>
+                        @foreach (var item in @ViewBag.Spots)
+                        {
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    Ime Lokacije
+                                </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.SpotName)
-                            </dd>
+                                <dd>
+                                    @item.SpotName
+                                </dd>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Description)
-                            </dt>
+                                <dt>
+                                    Opis
+                                </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.Description)
-                            </dd>
+                                <dd>
+                                    @item.Description
+                                </dd>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.DateCreated)
-                            </dt>
+                                <dt>
+                                    Datum nastanka
+                                </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.DateCreated)
-                            </dd>
+                                <dd>
+                                    @item.DateCreated
+                                </dd>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.DateModified)
-                            </dt>
+                                <dt>
+                                    Avtor
+                                </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.DateModified)
-                            </dd>
+                                <dd>
+                                    @item.UserCreatedID
+                                </dd>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.UserCreatedID)
-                            </dt>
+                                @if (item.DateCreated != item.DateModified) {
+                                    <dt>
+                                        Datum spremembe
+                                    </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.UserCreatedID)
-                            </dd>
+                                    <dd>
+                                        @item.DateModified
+                                    </dd>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.UserModifiedID)
-                            </dt>
+                                    <dt>
+                                        Avtor spremembe
+                                    </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.UserModifiedID)
-                            </dd>
-                        </dl>
+                                    <dd>
+                                        @item.UserModifiedID
+                                    </dd>
+                                }
+                            </dl>
+                        }
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-6 details-field">
+            <div class="col-sm-12 col-md-6 details-field">
                 <h4>Fotografija</h4>
-                @foreach (var item in @ViewBag.Photos) {
-                    <div class="col-sm-6">    
-                        <img src="@item.Description" class="details-photo" />
-                        <p><span class="bold-text">Datum nastanka: </span>@item.DateCreated</p>
+                @{int countPhotos = 0;}
+                @foreach (var item in ViewBag.Photos)
+                {
+                    countPhotos += 1;
+                }
+                @if (countPhotos > 0)
+                {
+                    foreach (var item in @ViewBag.Photos)
+                    {
+                        <div class="col-sm-6">
+                            <img src="@item.Description" class="details-photo" />
+                            <p><span class="bold-text">Datum nastanka: </span>@item.DateCreated</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-sm-12">
+                        <p class="text-center">Ta lokacija še nima slik.</p>
                     </div>
                 }
             </div>
@@ -82,39 +102,95 @@
                 <h4>Komentarji</h4>
             </div>
             <div class="col-sm-12 comments">
+                @{int countComments = 0;}
                 @foreach (var item in ViewBag.Comments)
                 {
+                    countComments += 1;
+                }
+                @if (countComments > 0)
+                {
+                    foreach (var item in ViewBag.Comments)
+                    {
+                        <div class="row">
+                            <div class="col-sm-2 comment">
+                                <p class="bold-text">@item.UserCreatedID</p>
+                                <p>@item.DateCreated</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="bold-text">@item.Title</p>
+                                @item.Text
+                            </div>
+                            <div class="col-sm-1">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    var CurrentUser = Auxiliaries.GetUserId(User);
+                                    if (CurrentUser == item.UserCreatedID)
+                                    {
+                                        var routeValue = new { id = item.CommentGuid };
+                                        @Html.ActionLink("Izbriši", "Delete", "Comments", routeValue, null)
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr />
+                        </div>
+                    }
+                }
+                else
+                {
                     <div class="row">
-                        <div class="col-sm-2 comment">
-                            <p class="bold-text">Gašper Sinur</p>
-                            <p>@item.DateCreated</p>
-                        </div>
-                        <div class="col-sm-10">
-                            <p class="bold-text">@item.Title</p>
-                            @item.Text
-                        </div>
+                        <p class="text-center">Ta lokacija še nima komentarjev.</p>
                     </div>
                     <div class="row">
                         <hr />
                     </div>
                 }
+                <div class="row">
+                    <div class="col-sm-12">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
 
-                @if (Request.IsAuthenticated)
-                {
-                    <p class="comment-login">
-                        @Html.ActionLink("Komentiraj", "Create", "Comments")
-                    </p>
-                }
-                else
-                {
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p class="comment-login">
-                                Za pisanje komentarjev se morate @Html.ActionLink("prijaviti", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }).
-                            </p>
-                        </div>
+                                        <div>
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-3">
+                                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-5">
+                                                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input type="submit" value="Komentiraj" class="btn btn-default" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="comment-login">
+                                        Za pisanje komentarjev se morate @Html.ActionLink("prijaviti", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }).
+                                    </p>
+                                </div>
+                            </div>
+                        }
                     </div>
-                }
+                </div>
             </div>
         </div>
 
@@ -129,9 +205,16 @@
             };
             var infoWindow = new google.maps.InfoWindow();
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var icon = {
+                url: "/Images/pinGreen.png",
+                scaledSize: new google.maps.Size(20, 35),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(10, 35)
+            }
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
+                icon: icon,
                 title: markerDetails.title
             });
             (function (marker, markerDetails) {
