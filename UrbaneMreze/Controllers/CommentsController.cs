@@ -135,6 +135,16 @@ namespace UrbaneMreze.Controllers
             return RedirectToAction("Index");
         }
 
+        //[HttpPost, ActionName("DeleteUser")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedUser(Guid id)
+        {
+            Comment comment = db.Comments.Find(id);
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Home", routeValues: new { id = comment.SpotGuid } );
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

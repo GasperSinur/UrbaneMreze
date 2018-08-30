@@ -18,6 +18,7 @@ namespace UrbaneMreze.Controllers
         private CommentsDbContext dbComments = new CommentsDbContext();
         private PhotosDbContext dbPhotos = new PhotosDbContext();
         private PinsDbContext dbPins = new PinsDbContext();
+        private ApplicationDbContext dbApp = new ApplicationDbContext();
 
         public ActionResult Index()
         {
@@ -68,20 +69,33 @@ namespace UrbaneMreze.Controllers
             var photos = dbPhotos.Photos.Where(x => x.SpotGuid == id.Value);
 
             ViewBag.Spots = spots;
+
+            foreach (var item in comments)
+            {
+                item.CommentAuthorUsername = dbApp.Users.Find(item.UserCreatedID.ToString()).UserName;
+            }
             ViewBag.Comments = comments;
+
+            List<PhotoLight> photosLight = new List<PhotoLight>();
 
             foreach (var item in photos)
             {
-                if (item.File != null && item.File.Length > 0)
+                PhotoLight itemLight = new PhotoLight();
+                itemLight.PhotoGuid = item.PhotoGuid;
+                itemLight.Description = item.Description;
+                itemLight.DateCreated = item.DateCreated;
+                if (item.Thumbnail != null && item.Thumbnail.Length > 0)
                 {
-                    var base64 = Convert.ToBase64String(item.File);
+                    var base64 = Convert.ToBase64String(item.Thumbnail);
                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    item.Description = imgSrc;
+                    itemLight.ThumbnailSrc = imgSrc;
                 }
+                photosLight.Add(itemLight);
+
             }
 
-            ViewBag.Photos = photos;
-            
+            ViewBag.PhotosLight = photosLight;
+
             return View();
         }
 
@@ -89,6 +103,19 @@ namespace UrbaneMreze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Details([Bind(Include = "SpotGuid,Title,Text")] Comment comment, Guid? id)
         {
+            if (ModelState.IsValid)
+            {
+                comment.CommentGuid = Guid.NewGuid();
+                comment.SpotGuid = id.Value;
+                comment.DateCreated = DateTime.Now;
+                comment.DateModified = comment.DateCreated;
+                comment.UserCreatedID = Auxiliaries.GetUserId(User);
+                comment.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                dbComments.Comments.Add(comment);
+                dbComments.SaveChanges();
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -113,32 +140,34 @@ namespace UrbaneMreze.Controllers
             var photos = dbPhotos.Photos.Where(x => x.SpotGuid == id.Value);
 
             ViewBag.Spots = spots;
+
+            foreach(var item in comments)
+            {
+                item.CommentAuthorUsername = dbApp.Users.Find(item.UserCreatedID.ToString()).UserName;
+            }
             ViewBag.Comments = comments;
+
+            List<PhotoLight> photosLight = new List<PhotoLight>();
 
             foreach (var item in photos)
             {
-                if (item.File != null && item.File.Length > 0)
+                PhotoLight itemLight = new PhotoLight();
+                itemLight.PhotoGuid = item.PhotoGuid;
+                itemLight.Description = item.Description;
+                itemLight.DateCreated = item.DateCreated;
+                if (item.Thumbnail != null && item.Thumbnail.Length > 0)
                 {
-                    var base64 = Convert.ToBase64String(item.File);
+                    var base64 = Convert.ToBase64String(item.Thumbnail);
                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    item.Description = imgSrc;
+                    itemLight.ThumbnailSrc = imgSrc;
                 }
+                photosLight.Add(itemLight);
+                
             }
 
-            ViewBag.Photos = photos;
+            ViewBag.PhotosLight = photosLight;
 
-            if (ModelState.IsValid)
-            {
-                comment.CommentGuid = Guid.NewGuid();
-                comment.SpotGuid = id.Value;
-                comment.DateCreated = DateTime.Now;
-                comment.DateModified = comment.DateCreated;
-                comment.UserCreatedID = Auxiliaries.GetUserId(User);
-                comment.UserModifiedID = Auxiliaries.GetUserId(User);
-
-                dbComments.Comments.Add(comment);
-                dbComments.SaveChanges();
-            }
+            
 
             return View();
         }

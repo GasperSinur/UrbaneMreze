@@ -62,7 +62,12 @@
         </dt>
 
         <dd>
-            
+            @{
+                if (Model.Thumbnail != null && Model.Thumbnail.ContentLength > 0)
+                {
+                    @:<img src="@ViewBag.ImgSrcThumb" width="100" />
+                }
+            }
         </dd>
 
         <dt>

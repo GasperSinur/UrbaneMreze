@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -41,6 +42,9 @@ namespace UrbaneMreze.Models
 
         [Display(Name = "Avtor spremembe")]
         public Guid UserModifiedID { get; set; }
+
+        [NotMapped]
+        public String CommentAuthorUsername { get; set; }
     }
 
     public class CommentEditViewModel

@@ -73,18 +73,18 @@
 
             <div class="col-sm-12 col-md-6 details-field">
                 <h4>Fotografija</h4>
-                @{int countPhotos = 0;}
-                @foreach (var item in ViewBag.Photos)
-                {
-                    countPhotos += 1;
+                @{
+                    var photosLight = ViewBag.PhotosLight as IEnumerable<UrbaneMreze.Models.PhotoLight>;
+                    var countPhotos = photosLight.Count();
                 }
                 @if (countPhotos > 0)
                 {
-                    foreach (var item in @ViewBag.Photos)
+                    foreach (var item in photosLight)
                     {
-                        <div class="col-sm-6">
-                            <img src="@item.Description" class="details-photo" />
-                            <p><span class="bold-text">Datum nastanka: </span>@item.DateCreated</p>
+                        <div class="col-sm-4">
+                            <img src="@item.ThumbnailSrc" class="details-photo" />
+                            <p class="bold-text">Datum nastanka:</p>
+                            <p>@item.DateCreated</p>
                         </div>
                     }
                 }
@@ -113,7 +113,7 @@
                     {
                         <div class="row">
                             <div class="col-sm-2 comment">
-                                <p class="bold-text">@item.UserCreatedID</p>
+                                <p class="bold-text">@item.CommentAuthorUsername</p>
                                 <p>@item.DateCreated</p>
                             </div>
                             <div class="col-sm-9">
@@ -126,8 +126,7 @@
                                     var CurrentUser = Auxiliaries.GetUserId(User);
                                     if (CurrentUser == item.UserCreatedID)
                                     {
-                                        var routeValue = new { id = item.CommentGuid };
-                                        @Html.ActionLink("Izbriši", "Delete", "Comments", routeValue, null)
+                                        @Html.ActionLink( "Izbriši", "DeleteConfirmedUser", "Comments", routeValues: new { id = item.CommentGuid }, htmlAttributes: null)
                                     }
                                 }
                             </div>

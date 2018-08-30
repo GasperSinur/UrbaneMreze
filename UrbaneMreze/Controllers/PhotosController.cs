@@ -55,6 +55,15 @@ namespace UrbaneMreze.Controllers
                 ViewBag.ImgSrc = imgSrc;
             }
 
+            if (photo.Thumbnail != null && photo.Thumbnail.Length > 0)
+            {
+                photoAllViewModel.Thumbnail = new MemoryPostedFile(photo.Thumbnail);
+
+                var base64 = Convert.ToBase64String(photo.Thumbnail);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrcThumb = imgSrc;
+            }
+
             return View(photoAllViewModel);
         }
 
@@ -101,7 +110,15 @@ namespace UrbaneMreze.Controllers
                         using (var reader = new BinaryReader(photoViewModel.File.InputStream))
                         {
                             photo.File = reader.ReadBytes(photoViewModel.File.ContentLength);
-                            photo.Thumbnail = photo.File;
+                            int thumbWidth = 200;
+                            int thumbHeight = 150;
+                            MemoryStream myMemStream = new MemoryStream(photo.File);
+                            System.Drawing.Image fullsizeImage = System.Drawing.Image.FromStream(myMemStream);
+                            System.Drawing.Image newImage = fullsizeImage.GetThumbnailImage(thumbWidth, thumbHeight, null, IntPtr.Zero);
+                            MemoryStream myResult = new MemoryStream();
+                            newImage.Save(myResult, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            byte [] myResultByte = myResult.ToArray();
+                            photo.Thumbnail = myResultByte;
                         }
                     }
                 }
@@ -189,7 +206,15 @@ namespace UrbaneMreze.Controllers
                         using (var reader = new BinaryReader(photoEditViewModel.File.InputStream))
                         {
                             photo.File = reader.ReadBytes(photoEditViewModel.File.ContentLength);
-                            photo.Thumbnail = photo.File;
+                            int thumbWidth = 200;
+                            int thumbHeight = 150;
+                            MemoryStream myMemStream = new MemoryStream(photo.File);
+                            System.Drawing.Image fullsizeImage = System.Drawing.Image.FromStream(myMemStream);
+                            System.Drawing.Image newImage = fullsizeImage.GetThumbnailImage(thumbWidth, thumbHeight, null, IntPtr.Zero);
+                            MemoryStream myResult = new MemoryStream();
+                            newImage.Save(myResult, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            byte[] myResultByte = myResult.ToArray();
+                            photo.Thumbnail = myResultByte;
                         }
                     }
                 }
@@ -233,6 +258,15 @@ namespace UrbaneMreze.Controllers
                 var base64 = Convert.ToBase64String(photo.File);
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                 ViewBag.ImgSrc = imgSrc;
+            }
+
+            if (photo.Thumbnail != null && photo.Thumbnail.Length > 0)
+            {
+                photoAllViewModel.Thumbnail = new MemoryPostedFile(photo.Thumbnail);
+
+                var base64 = Convert.ToBase64String(photo.Thumbnail);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ViewBag.ImgSrcThumb = imgSrc;
             }
 
             return View(photoAllViewModel);

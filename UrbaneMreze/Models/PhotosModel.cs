@@ -145,7 +145,18 @@ namespace UrbaneMreze.Models
         public Guid UserModifiedID { get; set; }
     }
 
-        public class PhotosDbContext : DbContext
+    public class PhotoLight
+    {
+        public Guid PhotoGuid { get; set; }
+
+        public String Description { get; set; }
+
+        public String ThumbnailSrc { get; set; }
+
+        public DateTime DateCreated { get; set; }
+    }
+
+    public class PhotosDbContext : DbContext
     {
         public DbSet<Photo> Photos { get; set; }
 
