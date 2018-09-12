@@ -73,7 +73,12 @@ textarea {
 
 .footer-top {
     padding: 10px 0 10px 0;
-    
+}
+
+img.image-footer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 
 .footer-copyright {
