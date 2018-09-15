@@ -236,6 +236,14 @@
     <Compile Include="Migrations\201809151723397_TypesUpdate.Designer.cs">
       <DependentUpon>201809151723397_TypesUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809152002436_EntitiesUpdate2.cs" />
+    <Compile Include="Migrations\201809152002436_EntitiesUpdate2.Designer.cs">
+      <DependentUpon>201809152002436_EntitiesUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809152006258_EntitiesUpdate3.cs" />
+    <Compile Include="Migrations\201809152006258_EntitiesUpdate3.Designer.cs">
+      <DependentUpon>201809152006258_EntitiesUpdate3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
@@ -320,11 +328,6 @@
     <Content Include="Views\Pins\Details.cshtml" />
     <Content Include="Views\Pins\Edit.cshtml" />
     <Content Include="Views\Pins\Index.cshtml" />
-    <Content Include="Views\Entities\Create.cshtml" />
-    <Content Include="Views\Entities\Delete.cshtml" />
-    <Content Include="Views\Entities\Details.cshtml" />
-    <Content Include="Views\Entities\Edit.cshtml" />
-    <Content Include="Views\Entities\Index.cshtml" />
     <Content Include="Views\Spots\Create.cshtml" />
     <Content Include="Views\Spots\Delete.cshtml" />
     <Content Include="Views\Spots\Details.cshtml" />
@@ -347,6 +350,11 @@
     <Content Include="Views\Types\Details.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
+    <Content Include="Views\Entities\Create.cshtml" />
+    <Content Include="Views\Entities\Delete.cshtml" />
+    <Content Include="Views\Entities\Details.cshtml" />
+    <Content Include="Views\Entities\Edit.cshtml" />
+    <Content Include="Views\Entities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -385,6 +393,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809151723397_TypesUpdate.resx">
       <DependentUpon>201809151723397_TypesUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809152002436_EntitiesUpdate2.resx">
+      <DependentUpon>201809152002436_EntitiesUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809152006258_EntitiesUpdate3.resx">
+      <DependentUpon>201809152006258_EntitiesUpdate3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

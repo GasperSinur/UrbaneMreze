@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,7 +17,7 @@ namespace UrbaneMreze.Controllers
         // GET: Entities
         public ActionResult Index()
         {
-            return View();
+            return View(db.Entities.ToList());
         }
 
         // GET: Entities/Details/5
@@ -52,7 +51,7 @@ namespace UrbaneMreze.Controllers
             if (ModelState.IsValid)
             {
                 entity.EntityGuid = Guid.NewGuid();
-                
+
                 entity.DateCreated = DateTime.Now;
                 entity.DateModified = entity.DateCreated;
                 entity.UserCreatedID = Auxiliaries.GetUserId(User);

@@ -50,7 +50,7 @@ namespace UrbaneMreze.Models
         public String Description { get; set; }
     }
 
-        public class EntitiesDbContext : DbContext
+    public class EntitiesDbContext : DbContext
     {
         public DbSet<Entity> Entities { get; set; }
 

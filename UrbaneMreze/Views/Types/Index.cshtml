@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<UrbaneMreze.Models.Type>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tipi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Tipi</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Ustvari Novo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,18 +23,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCreatedID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserModifiedID)
         </th>
         <th></th>
     </tr>
@@ -54,21 +42,9 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserCreatedID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserModifiedID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TypeGuid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TypeGuid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TypeGuid })
+            @Html.ActionLink("Uredi", "Edit", new { id=item.TypeGuid }) |
+            @Html.ActionLink("Podrobnosti", "Details", new { id=item.TypeGuid }) |
+            @Html.ActionLink("Izbriši", "Delete", new { id=item.TypeGuid })
         </td>
     </tr>
 }
