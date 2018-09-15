@@ -10,6 +10,7 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
+    
     public class SpotsController : Controller
     {
         private SpotsDbContext db = new SpotsDbContext();

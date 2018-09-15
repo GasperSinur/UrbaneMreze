@@ -208,10 +208,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807220728132_InitialCreate.cs" />
-    <Compile Include="Migrations\201807220728132_InitialCreate.Designer.cs">
-      <DependentUpon>201807220728132_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201807220804233_CommentsUpdate.cs" />
     <Compile Include="Migrations\201807220804233_CommentsUpdate.Designer.cs">
       <DependentUpon>201807220804233_CommentsUpdate.cs</DependentUpon>
@@ -232,6 +228,15 @@
     <Compile Include="Migrations\201808271117091_SpotsTypesUpdate.Designer.cs">
       <DependentUpon>201808271117091_SpotsTypesUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809151710549_EntitiesUpdate.cs" />
+    <Compile Include="Migrations\201809151710549_EntitiesUpdate.Designer.cs">
+      <DependentUpon>201809151710549_EntitiesUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809151723397_TypesUpdate.cs" />
+    <Compile Include="Migrations\201809151723397_TypesUpdate.Designer.cs">
+      <DependentUpon>201809151723397_TypesUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
     <Compile Include="Models\EntitiesModel.cs" />
@@ -315,11 +320,6 @@
     <Content Include="Views\Pins\Details.cshtml" />
     <Content Include="Views\Pins\Edit.cshtml" />
     <Content Include="Views\Pins\Index.cshtml" />
-    <Content Include="Views\Types\Create.cshtml" />
-    <Content Include="Views\Types\Delete.cshtml" />
-    <Content Include="Views\Types\Details.cshtml" />
-    <Content Include="Views\Types\Edit.cshtml" />
-    <Content Include="Views\Types\Index.cshtml" />
     <Content Include="Views\Entities\Create.cshtml" />
     <Content Include="Views\Entities\Delete.cshtml" />
     <Content Include="Views\Entities\Details.cshtml" />
@@ -342,6 +342,11 @@
     <Content Include="Views\Photos\Index.cshtml" />
     <Content Include="Views\Home\Activities.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Types\Create.cshtml" />
+    <Content Include="Views\Types\Delete.cshtml" />
+    <Content Include="Views\Types\Details.cshtml" />
+    <Content Include="Views\Types\Edit.cshtml" />
+    <Content Include="Views\Types\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,9 +365,6 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807220728132_InitialCreate.resx">
-      <DependentUpon>201807220728132_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807220804233_CommentsUpdate.resx">
       <DependentUpon>201807220804233_CommentsUpdate.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +379,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808271117091_SpotsTypesUpdate.resx">
       <DependentUpon>201808271117091_SpotsTypesUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809151710549_EntitiesUpdate.resx">
+      <DependentUpon>201809151710549_EntitiesUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809151723397_TypesUpdate.resx">
+      <DependentUpon>201809151723397_TypesUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,13 +7,13 @@ namespace UrbaneMreze.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class EntitiesUpdate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EntitiesUpdate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807220728132_InitialCreate"; }
+            get { return "201809151710549_EntitiesUpdate"; }
         }
         
         string IMigrationMetadata.Source

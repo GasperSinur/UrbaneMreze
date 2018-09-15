@@ -21,7 +21,7 @@ namespace UrbaneMreze.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("UrbaneMreze", throwIfV1Schema: false)
         {
         }
 

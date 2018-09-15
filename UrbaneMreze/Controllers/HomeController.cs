@@ -143,6 +143,10 @@ namespace UrbaneMreze.Controllers
             var comments = dbComments.Comments.Where(x => x.SpotGuid == id.Value);
             var photos = dbPhotos.Photos.Where(x => x.SpotGuid == id.Value);
 
+            foreach (var item in spots)
+            {
+                item.SpotAuthorUsername = dbApp.Users.Find(item.UserCreatedID.ToString()).UserName;
+            }
             ViewBag.Spots = spots;
 
             foreach(var item in comments)

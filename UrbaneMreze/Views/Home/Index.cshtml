@@ -42,7 +42,8 @@
                 var mapOptions = {  
                     center: new google.maps.LatLng(45.8010824, 15.1710089),  
                     zoom: 13,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    gestureHandling: 'cooperative'
                 };  
                 var infoWindow = new google.maps.InfoWindow();  
                 var map = new google.maps.Map(document.getElementById("map"), mapOptions);  
@@ -50,13 +51,13 @@
                     var data = markers[i] 
                     var myLatlng = new google.maps.LatLng(data.lat, data.lng);  
                     var icon = {
-                        url: "Images/pinGreen.png",
+                        url: "/Images/pinGreen.png",
                         scaledSize: new google.maps.Size(20, 35),
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(10, 35)
                     }
                     var marker = new google.maps.Marker({  
-                        position: myLatlng,  
+                        position: myLatlng,
                         map: map,
                         icon: icon,
                         title: data.title  
