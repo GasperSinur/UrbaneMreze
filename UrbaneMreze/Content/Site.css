@@ -97,6 +97,15 @@ img.image-footer {
     height: 500px;
 }
 
+.create-spot {
+    margin-top: 40px;
+    padding: 20px;
+    border: 2px solid black;
+}
+
+.margin-bot{
+    margin-bottom: 10px;
+}
 
 /* HOME/DETAILS */
 

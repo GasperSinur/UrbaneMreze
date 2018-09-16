@@ -118,7 +118,7 @@
                                     var CurrentUser = Auxiliaries.GetUserId(User);
                                     if (CurrentUser == item.UserCreatedID)
                                     {
-                                        @Html.ActionLink( "Izbriši", "DeleteConfirmedUser", "Comments", routeValues: new { id = item.CommentGuid }, htmlAttributes: null)
+                                        @Html.ActionLink( "Izbriši", "DeleteConfirmedUser", "Comments", routeValues: new { id = item.CommentGuid }, htmlAttributes: new { onclick = "return confirm('Ali ste prepričani, da želite izbrisati komentar?');" })
                                     }
                                 }
                             </div>

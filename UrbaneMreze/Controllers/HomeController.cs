@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Dynamic;
+using PagedList;
 
 namespace UrbaneMreze.Controllers
 {
@@ -20,14 +21,14 @@ namespace UrbaneMreze.Controllers
         private PinsDbContext dbPins = new PinsDbContext();
         private ApplicationDbContext dbApp = new ApplicationDbContext();
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, int? page)
         {
             string MarkersString = "[";
 
-            var test = from x in dbSpots.Spots
+            var SpotArray = from x in dbSpots.Spots
                        select new { x.SpotName, x.Latitude, x.Longitude, x.Description };
 
-            foreach (var i in test)
+            foreach (var i in SpotArray)
             {
                 MarkersString +="{";
                 MarkersString+=String.Format("title: '{0}',", i.SpotName);
@@ -40,7 +41,109 @@ namespace UrbaneMreze.Controllers
             MarkersString+= "]";
             ViewBag.Markers = MarkersString;
 
-            return View(dbSpots.Spots.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var spots = from s in dbSpots.Spots
+                        select s;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    spots = spots.OrderByDescending(s => s.SpotName);
+                    break;
+                case "Date":
+                    spots = spots.OrderBy(s => s.DateCreated);
+                    break;
+                case "date_desc":
+                    spots = spots.OrderByDescending(s => s.DateCreated);
+                    break;
+                default:
+                    spots = spots.OrderBy(s => s.SpotName);
+                    break;
+            }
+
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.SpotList = spots.ToPagedList(pageNumber, pageSize);
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string sortOrder, int? page, [Bind(Include = "SpotName,Description,Longitude,Latitude")] Spot spot)
+        {
+            if (ModelState.IsValid)
+            {
+                spot.SpotGuid = Guid.NewGuid();
+                spot.DateCreated = DateTime.Now;
+                spot.DateModified = spot.DateCreated;
+                spot.UserCreatedID = Auxiliaries.GetUserId(User);
+                spot.UserModifiedID = Auxiliaries.GetUserId(User);
+
+                dbSpots.Spots.Add(spot);
+                dbSpots.SaveChanges();
+            }
+
+            string MarkersString = "[";
+
+            var SpotArray = from x in dbSpots.Spots
+                            select new { x.SpotName, x.Latitude, x.Longitude, x.Description };
+
+            foreach (var i in SpotArray)
+            {
+                MarkersString += "{";
+                MarkersString += String.Format("title: '{0}',", i.SpotName);
+                MarkersString += String.Format("lat: '{0}',", i.Latitude);
+                MarkersString += String.Format("lng: '{0}',", i.Longitude);
+                MarkersString += String.Format("description: '{0}'", i.Description);
+                MarkersString += "},";
+            }
+
+            MarkersString += "]";
+            ViewBag.Markers = MarkersString;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var spots = from s in dbSpots.Spots
+                        select s;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    spots = spots.OrderByDescending(s => s.SpotName);
+                    break;
+                case "Date":
+                    spots = spots.OrderBy(s => s.DateCreated);
+                    break;
+                case "date_desc":
+                    spots = spots.OrderByDescending(s => s.DateCreated);
+                    break;
+                default:
+                    spots = spots.OrderBy(s => s.SpotName);
+                    break;
+            }
+
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.SpotList = spots.ToPagedList(pageNumber, pageSize);
+
+            if (ModelState.IsValid)
+            {
+                ModelState.Clear();
+            }
+            else
+            {
+                TryUpdateModel(spot);
+            }
+  
+            return View();
         }
 
         public ActionResult Details(Guid? id)
@@ -175,12 +278,19 @@ namespace UrbaneMreze.Controllers
 
             ViewBag.PhotosLight = photosLight;
 
-            
+            if (ModelState.IsValid)
+            {
+                ModelState.Clear();
+            }
+            else
+            {
+                TryUpdateModel(comment);
+            }
 
             return View();
         }
 
-            public ActionResult About()
+        public ActionResult About()
         {
             return View();
         }
