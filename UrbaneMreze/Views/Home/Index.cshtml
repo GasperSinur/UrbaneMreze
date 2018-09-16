@@ -89,7 +89,14 @@
                                             @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-6">Tip</label>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("TypeGuid", null, htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
                                             <input type="submit" value="Dodaj lokacijo" class="btn btn-default" />
                                         </div>
                                     </div>
@@ -117,7 +124,7 @@
             function initMap() {
                 var mapOptions = {
                     center: new google.maps.LatLng(45.8010824, 15.1710089),
-                    zoom: 13,
+                    zoom: 12,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     gestureHandling: 'cooperative'
                 };

@@ -47,6 +47,9 @@ namespace UrbaneMreze.Models
 
         [NotMapped]
         public String SpotAuthorUsername { get; set; }
+
+        [NotMapped]
+        public Guid TypeGuid { get; set; }
     }
 
     public class SpotEditViewModel
@@ -68,6 +71,9 @@ namespace UrbaneMreze.Models
         [Display(Name = "Zemljepisna širina")]
         [Required(ErrorMessage = "Vpišite zemljepisno širino!")]
         public Double Latitude { get; set; }
+
+        [NotMapped]
+        public Guid TypeGuid { get; set; }
     }
 
     public class SpotsDbContext : DbContext

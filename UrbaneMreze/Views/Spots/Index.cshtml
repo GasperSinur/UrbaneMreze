@@ -16,6 +16,9 @@
             @Html.DisplayNameFor(model => model.SpotName)
         </th>
         <th>
+            Tip
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
@@ -33,6 +36,21 @@
             @Html.DisplayFor(modelItem => item.SpotName)
         </td>
         <td>
+            @foreach (var item2 in ViewBag.spotTypes)
+            {
+                if (item.SpotGuid == item2.SpotGuid)
+                {
+                    foreach (var item3 in ViewBag.Types)
+                    {
+                        if (item3.TypeGuid == item2.TypeGuid)
+                        {
+                            @item3.TypeName;
+                        }
+                    }
+                }
+            }
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
@@ -42,9 +60,9 @@
             @Html.DisplayFor(modelItem => item.Latitude)
         </td>
         <td>
-            @Html.ActionLink("Uredi", "Edit", new { id=item.SpotGuid }) |
-            @Html.ActionLink("Podrobnosti", "Details", new { id=item.SpotGuid }) |
-            @Html.ActionLink("Izbriši", "Delete", new { id=item.SpotGuid })
+            @Html.ActionLink("Uredi", "Edit", new { id = item.SpotGuid }) |
+            @Html.ActionLink("Podrobnosti", "Details", new { id = item.SpotGuid }) |
+            @Html.ActionLink("Izbriši", "Delete", new { id = item.SpotGuid })
         </td>
     </tr>
 }

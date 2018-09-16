@@ -110,8 +110,8 @@ namespace UrbaneMreze.Controllers
                         using (var reader = new BinaryReader(photoViewModel.File.InputStream))
                         {
                             photo.File = reader.ReadBytes(photoViewModel.File.ContentLength);
-                            int thumbWidth = 200;
-                            int thumbHeight = 150;
+                            int thumbWidth = 250;
+                            int thumbHeight = 200;
                             MemoryStream myMemStream = new MemoryStream(photo.File);
                             System.Drawing.Image fullsizeImage = System.Drawing.Image.FromStream(myMemStream);
                             System.Drawing.Image newImage = fullsizeImage.GetThumbnailImage(thumbWidth, thumbHeight, null, IntPtr.Zero);
@@ -206,8 +206,8 @@ namespace UrbaneMreze.Controllers
                         using (var reader = new BinaryReader(photoEditViewModel.File.InputStream))
                         {
                             photo.File = reader.ReadBytes(photoEditViewModel.File.ContentLength);
-                            int thumbWidth = 200;
-                            int thumbHeight = 150;
+                            int thumbWidth = 250;
+                            int thumbHeight = 200;
                             MemoryStream myMemStream = new MemoryStream(photo.File);
                             System.Drawing.Image fullsizeImage = System.Drawing.Image.FromStream(myMemStream);
                             System.Drawing.Image newImage = fullsizeImage.GetThumbnailImage(thumbWidth, thumbHeight, null, IntPtr.Zero);

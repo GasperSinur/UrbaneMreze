@@ -18,6 +18,8 @@ namespace UrbaneMreze.Controllers
         private SpotsDbContext dbSpots = new SpotsDbContext();
         private CommentsDbContext dbComments = new CommentsDbContext();
         private PhotosDbContext dbPhotos = new PhotosDbContext();
+        private TypesDbContext dbTypes = new TypesDbContext();
+        private SpotsTypesDbContext dbSpotTypes = new SpotsTypesDbContext();
         private PinsDbContext dbPins = new PinsDbContext();
         private ApplicationDbContext dbApp = new ApplicationDbContext();
 
@@ -69,12 +71,14 @@ namespace UrbaneMreze.Controllers
 
             ViewBag.SpotList = spots.ToPagedList(pageNumber, pageSize);
 
+            ViewBag.TypeGuid = new SelectList(dbTypes.Types, "TypeGuid", "TypeName");
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string sortOrder, int? page, [Bind(Include = "SpotName,Description,Longitude,Latitude")] Spot spot)
+        public ActionResult Index(string sortOrder, int? page, [Bind(Include = "SpotName,Description,Longitude,Latitude,TypeGuid")] Spot spot)
         {
             if (ModelState.IsValid)
             {
@@ -84,8 +88,18 @@ namespace UrbaneMreze.Controllers
                 spot.UserCreatedID = Auxiliaries.GetUserId(User);
                 spot.UserModifiedID = Auxiliaries.GetUserId(User);
 
+                SpotType spotType = new SpotType();
+                spotType.SpotTypeGuid = Guid.NewGuid();
+                spotType.SpotGuid = spot.SpotGuid;
+                spotType.TypeGuid = spot.TypeGuid;
+                spotType.DateCreated = DateTime.Now;
+                spotType.DateModified = spotType.DateCreated;
+
                 dbSpots.Spots.Add(spot);
                 dbSpots.SaveChanges();
+
+                dbSpotTypes.SpotsTypes.Add(spotType);
+                dbSpotTypes.SaveChanges();
             }
 
             string MarkersString = "[";
@@ -142,7 +156,9 @@ namespace UrbaneMreze.Controllers
             {
                 TryUpdateModel(spot);
             }
-  
+
+            ViewBag.TypeGuid = new SelectList(dbTypes.Types, "TypeGuid", "TypeName", spot.TypeGuid);
+
             return View();
         }
 

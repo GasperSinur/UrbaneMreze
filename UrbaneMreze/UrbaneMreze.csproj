@@ -250,6 +250,14 @@
     <Compile Include="Migrations\201809152006258_EntitiesUpdate3.Designer.cs">
       <DependentUpon>201809152006258_EntitiesUpdate3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809161133545_SpotsEntititesUpdate2.cs" />
+    <Compile Include="Migrations\201809161133545_SpotsEntititesUpdate2.Designer.cs">
+      <DependentUpon>201809161133545_SpotsEntititesUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809161151156_SpotTypesUpdate1.cs" />
+    <Compile Include="Migrations\201809161151156_SpotTypesUpdate1.Designer.cs">
+      <DependentUpon>201809161151156_SpotTypesUpdate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentsModel.cs" />
@@ -406,6 +414,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809152006258_EntitiesUpdate3.resx">
       <DependentUpon>201809152006258_EntitiesUpdate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809161133545_SpotsEntititesUpdate2.resx">
+      <DependentUpon>201809161133545_SpotsEntititesUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809161151156_SpotTypesUpdate1.resx">
+      <DependentUpon>201809161151156_SpotTypesUpdate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
