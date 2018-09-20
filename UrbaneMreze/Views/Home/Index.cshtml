@@ -24,7 +24,7 @@
                     @foreach (var item in @ViewBag.SpotList)
                     {
                         string ime = item.SpotName;
-                        <tr>
+                        <tr class="@foreach (var item2 in @ViewBag.SpotLight) { if (item2.SpotGuid == item.SpotGuid) {@item2.Style}} link-style">
                             <td>
                                 @Html.ActionLink(ime, "Details", new { id = item.SpotGuid })
                             </td>
@@ -124,7 +124,7 @@
             function initMap() {
                 var mapOptions = {
                     center: new google.maps.LatLng(45.8010824, 15.1710089),
-                    zoom: 12,
+                    zoom: 13,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     gestureHandling: 'cooperative'
                 };
@@ -134,7 +134,7 @@
                     var data = markers[i]
                     var myLatlng = new google.maps.LatLng(data.lat, data.lng);
                     var icon = {
-                        url: "/Images/pinGreen.png",
+                        url: data.url,
                         scaledSize: new google.maps.Size(20, 35),
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(10, 35)
@@ -148,7 +148,9 @@
                     (function (marker, data) {
                         google.maps.event.addListener(marker, "click", function (e) {
                             infoWindow.setContent(
-                                "<div class='infoWindow'><span class='bold-text'>" + data.title + "</span><br/><p>" + data.description + "</p><p><a href='https://www.google.com/maps/?q=" + data.lat + "," + data.lng + "' target='_blank'>Prikaži v Google Zemljevidih</a></p></div>"
+                                "<div class='infoWindow'><span class='bold-text'>" + data.title + "</span><br/><p>" + data.description +
+                                "</p><p><a href='https://www.google.com/maps/?q=" + data.lat + "," + data.lng +
+                                "' target='_blank'>Prikaži v Google Zemljevidih</a></p></div>"
                             );
                             infoWindow.open(map, marker);
                         });

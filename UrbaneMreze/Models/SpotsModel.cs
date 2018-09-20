@@ -76,6 +76,14 @@ namespace UrbaneMreze.Models
         public Guid TypeGuid { get; set; }
     }
 
+    public class SpotLight
+    {
+        public Guid SpotGuid { get; set; }
+
+        [NotMapped]
+        public string Style { get; set; }
+    }
+
     public class SpotsDbContext : DbContext
     {
         public DbSet<Spot> Spots { get; set; }

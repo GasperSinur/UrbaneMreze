@@ -28,15 +28,36 @@ namespace UrbaneMreze.Controllers
             string MarkersString = "[";
 
             var SpotArray = from x in dbSpots.Spots
-                       select new { x.SpotName, x.Latitude, x.Longitude, x.Description };
+                       select new { x.SpotGuid, x.SpotName, x.Latitude, x.Longitude, x.Description };
+
+            var SpotTypes = dbSpotTypes.SpotsTypes;
 
             foreach (var i in SpotArray)
             {
-                MarkersString +="{";
-                MarkersString+=String.Format("title: '{0}',", i.SpotName);
-                MarkersString+=String.Format("lat: '{0}',", i.Latitude);
-                MarkersString+=String.Format("lng: '{0}',", i.Longitude);
-                MarkersString+=String.Format("description: '{0}'", i.Description);
+                MarkersString += "{";
+                MarkersString += String.Format("title: '{0}',", i.SpotName);
+                MarkersString += String.Format("lat: '{0}',", i.Latitude);
+                MarkersString += String.Format("lng: '{0}',", i.Longitude);
+                MarkersString += String.Format("description: '{0}',", i.Description);
+                foreach (var item in SpotTypes)
+                {
+                    if (i.SpotGuid == item.SpotGuid)
+                    {
+                        var Types = dbTypes.Types.First(x => x.TypeGuid == item.TypeGuid);
+                        if (Types.TypeName== "Zanimivost")
+                        {
+                            MarkersString+=String.Format("url: '{0}'", "/Images/pinBlue.png");
+                        }
+                        else if (Types.TypeName == "Zapostavljena mesta")
+                        {
+                            MarkersString += String.Format("url: '{0}'", "/Images/pinRed.png");
+                        }
+                        else if (Types.TypeName == "Urejena zapostavljena mesta")
+                        {
+                            MarkersString += String.Format("url: '{0}'", "/Images/pinGreen.png");
+                        }
+                    }
+                }
                 MarkersString += "},";
             }
 
@@ -49,6 +70,37 @@ namespace UrbaneMreze.Controllers
 
             var spots = from s in dbSpots.Spots
                         select s;
+
+            List<SpotLight> spotLight = new List<SpotLight>();
+
+            foreach (var item in spots)
+            {
+                SpotLight itemLight = new SpotLight();
+                itemLight.SpotGuid = item.SpotGuid;
+
+                foreach (var item2 in SpotTypes)
+                {
+                    if (item.SpotGuid == item2.SpotGuid)
+                    {
+                        var Types = dbTypes.Types.First(x => x.TypeGuid == item2.TypeGuid);
+                        if (Types.TypeName == "Zanimivost")
+                        {
+                            itemLight.Style = "Type-Blue";
+                        }
+                        else if (Types.TypeName == "Zapostavljena mesta")
+                        {
+                            itemLight.Style = "Type-Red";
+                        }
+                        else if (Types.TypeName == "Urejena zapostavljena mesta")
+                        {
+                            itemLight.Style = "Type-Green";
+                        }
+                    }
+                }
+                spotLight.Add(itemLight);
+            }
+
+            ViewBag.SpotLight = spotLight;
 
             switch (sortOrder)
             {
@@ -70,6 +122,8 @@ namespace UrbaneMreze.Controllers
             int pageNumber = (page ?? 1);
 
             ViewBag.SpotList = spots.ToPagedList(pageNumber, pageSize);
+
+
 
             ViewBag.TypeGuid = new SelectList(dbTypes.Types, "TypeGuid", "TypeName");
 
@@ -105,7 +159,9 @@ namespace UrbaneMreze.Controllers
             string MarkersString = "[";
 
             var SpotArray = from x in dbSpots.Spots
-                            select new { x.SpotName, x.Latitude, x.Longitude, x.Description };
+                            select new { x.SpotGuid, x.SpotName, x.Latitude, x.Longitude, x.Description };
+
+            var SpotTypes = dbSpotTypes.SpotsTypes;
 
             foreach (var i in SpotArray)
             {
@@ -113,7 +169,26 @@ namespace UrbaneMreze.Controllers
                 MarkersString += String.Format("title: '{0}',", i.SpotName);
                 MarkersString += String.Format("lat: '{0}',", i.Latitude);
                 MarkersString += String.Format("lng: '{0}',", i.Longitude);
-                MarkersString += String.Format("description: '{0}'", i.Description);
+                MarkersString += String.Format("description: '{0}',", i.Description);
+                foreach (var item in SpotTypes)
+                {
+                    if (i.SpotGuid == item.SpotGuid)
+                    {
+                        var Types = dbTypes.Types.First(x => x.TypeGuid == item.TypeGuid);
+                        if (Types.TypeName == "Zanimivost")
+                        {
+                            MarkersString += String.Format("url: '{0}'", "/Images/pinBlue.png");
+                        }
+                        else if (Types.TypeName == "Zapostavljena mesta")
+                        {
+                            MarkersString += String.Format("url: '{0}'", "/Images/pinRed.png");
+                        }
+                        else if (Types.TypeName == "Urejena zapostavljena mesta")
+                        {
+                            MarkersString += String.Format("url: '{0}'", "/Images/pinGreen.png");
+                        }
+                    }
+                }
                 MarkersString += "},";
             }
 
@@ -126,6 +201,37 @@ namespace UrbaneMreze.Controllers
 
             var spots = from s in dbSpots.Spots
                         select s;
+
+            List<SpotLight> spotLight = new List<SpotLight>();
+
+            foreach (var item in spots)
+            {
+                SpotLight itemLight = new SpotLight();
+                itemLight.SpotGuid = item.SpotGuid;
+
+                foreach (var item2 in SpotTypes)
+                {
+                    if (item.SpotGuid == item2.SpotGuid)
+                    {
+                        var Types = dbTypes.Types.First(x => x.TypeGuid == item2.TypeGuid);
+                        if (Types.TypeName == "Zanimivost")
+                        {
+                            itemLight.Style = "Type-Blue";
+                        }
+                        else if (Types.TypeName == "Zapostavljena mesta")
+                        {
+                            itemLight.Style = "Type-Red";
+                        }
+                        else if (Types.TypeName == "Urejena zapostavljena mesta")
+                        {
+                            itemLight.Style = "Type-Green";
+                        }
+                    }
+                }
+                spotLight.Add(itemLight);
+            }
+
+            ViewBag.SpotLight = spotLight;
 
             switch (sortOrder)
             {
@@ -174,11 +280,32 @@ namespace UrbaneMreze.Controllers
                 return HttpNotFound();
             }
 
+            var SpotTypes = dbSpotTypes.SpotsTypes;
+
             string MarkerString = "{";
             MarkerString += String.Format("title: '{0}', ", spot.SpotName);
             MarkerString += String.Format("lat: '{0}', ", spot.Latitude);
             MarkerString += String.Format("lng: '{0}', ", spot.Longitude);
-            MarkerString += String.Format("description: '{0}'", spot.Description);
+            MarkerString += String.Format("description: '{0}',", spot.Description);
+            foreach (var item in SpotTypes)
+            {
+                if (spot.SpotGuid == item.SpotGuid)
+                {
+                    var Types = dbTypes.Types.First(x => x.TypeGuid == item.TypeGuid);
+                    if (Types.TypeName == "Zanimivost")
+                    {
+                        MarkerString += String.Format("url: '{0}'", "/Images/pinBlue.png");
+                    }
+                    else if (Types.TypeName == "Zapostavljena mesta")
+                    {
+                        MarkerString += String.Format("url: '{0}'", "/Images/pinRed.png");
+                    }
+                    else if (Types.TypeName == "Urejena zapostavljena mesta")
+                    {
+                        MarkerString += String.Format("url: '{0}'", "/Images/pinGreen.png");
+                    }
+                }
+            }
             MarkerString += "}";
             
             ViewBag.Marker = MarkerString;
@@ -249,11 +376,32 @@ namespace UrbaneMreze.Controllers
                 return HttpNotFound();
             }
 
+            var SpotTypes = dbSpotTypes.SpotsTypes;
+
             string MarkerString = "{";
             MarkerString += String.Format("title: '{0}', ", spot.SpotName);
             MarkerString += String.Format("lat: '{0}', ", spot.Latitude);
             MarkerString += String.Format("lng: '{0}', ", spot.Longitude);
-            MarkerString += String.Format("description: '{0}'", spot.Description);
+            MarkerString += String.Format("description: '{0}',", spot.Description);
+            foreach (var item in SpotTypes)
+            {
+                if (spot.SpotGuid == item.SpotGuid)
+                {
+                    var Types = dbTypes.Types.First(x => x.TypeGuid == item.TypeGuid);
+                    if (Types.TypeName == "Zanimivost")
+                    {
+                        MarkerString += String.Format("url: '{0}'", "/Images/pinBlue.png");
+                    }
+                    else if (Types.TypeName == "Zapostavljena mesta")
+                    {
+                        MarkerString += String.Format("url: '{0}'", "/Images/pinRed.png");
+                    }
+                    else if (Types.TypeName == "Urejena zapostavljena mesta")
+                    {
+                        MarkerString += String.Format("url: '{0}'", "/Images/pinGreen.png");
+                    }
+                }
+            }
             MarkerString += "}";
 
             ViewBag.Marker = MarkerString;
@@ -313,6 +461,41 @@ namespace UrbaneMreze.Controllers
 
         public ActionResult Activities()
         {
+            var SpotArray = from x in dbSpots.Spots
+                            select new { x.SpotGuid };
+
+            var SpotTypes = dbSpotTypes.SpotsTypes;
+
+            var countZapostavljena = 0;
+            var countZanimivost = 0;
+            var countUrejena = 0;
+            foreach (var i in SpotArray)
+            {
+                foreach (var item in SpotTypes)
+                {
+                    if (i.SpotGuid == item.SpotGuid)
+                    {
+                        var Types = dbTypes.Types.First(x => x.TypeGuid == item.TypeGuid);
+                        if (Types.TypeName == "Zanimivost")
+                        {
+                            countZanimivost += 1;
+                        }
+                        else if (Types.TypeName == "Zapostavljena mesta")
+                        {
+                            countZapostavljena += 1;
+                        }
+                        else if (Types.TypeName == "Urejena zapostavljena mesta")
+                        {
+                            countUrejena += 1;
+                        }
+                    }
+                }
+            }
+
+            ViewBag.countZanimivost = countZanimivost;
+            ViewBag.countZapostavljena = countZapostavljena;
+            ViewBag.countUrejena = countUrejena;
+
             return View();
         }
 

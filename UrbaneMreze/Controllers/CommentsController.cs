@@ -15,6 +15,7 @@ namespace UrbaneMreze.Controllers
         private CommentsDbContext db = new CommentsDbContext();
 
         // GET: Comments
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Spot);
@@ -22,6 +23,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Comments/Details/5
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Comments/Create
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Create()
         {
             ViewBag.SpotGuid = new SelectList(db.Spots, "SpotGuid", "SpotName");
@@ -48,6 +51,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Create([Bind(Include = "SpotGuid,Title,Text")] Comment comment)
         {
             if (ModelState.IsValid)
@@ -69,6 +73,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -89,6 +94,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Edit([Bind(Include = "CommentGuid,SpotGuid,Title,Text")] CommentEditViewModel commentEditViewModel)
         {
             if (ModelState.IsValid)

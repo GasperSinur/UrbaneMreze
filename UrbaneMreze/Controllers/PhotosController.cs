@@ -11,6 +11,7 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class PhotosController : Controller
     {
         private PhotosDbContext db = new PhotosDbContext();

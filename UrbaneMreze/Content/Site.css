@@ -107,6 +107,30 @@ img.image-footer {
     margin-bottom: 10px;
 }
 
+.link-style a {
+    color: #337ab7;
+    text-decoration: none;
+    text-shadow: 1px 1px 0px black;
+}
+
+.link-style a:hover {
+    color: black;
+    text-decoration: none;
+    text-shadow: 1px 1px 0px #337ab7;
+}
+
+.Type-Green {
+    background-color: rgba(0, 255, 0, 0.3);
+}
+
+.Type-Red {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.Type-Blue {
+    background-color: rgba(0, 0, 255, 0.3);
+}
+
 /* HOME/DETAILS */
 
 .map-details {

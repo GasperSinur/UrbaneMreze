@@ -10,6 +10,7 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class TypesController : Controller
     {
         private TypesDbContext db = new TypesDbContext();

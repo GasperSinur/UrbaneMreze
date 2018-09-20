@@ -12,6 +12,7 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class PinsController : Controller
     {
         private PinsDbContext db = new PinsDbContext();

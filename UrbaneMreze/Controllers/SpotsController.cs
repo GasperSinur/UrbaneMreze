@@ -10,7 +10,7 @@ using UrbaneMreze.Models;
 
 namespace UrbaneMreze.Controllers
 {
-    
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class SpotsController : Controller
     {
         private SpotsDbContext db = new SpotsDbContext();
@@ -18,6 +18,7 @@ namespace UrbaneMreze.Controllers
         private SpotsTypesDbContext dbSpotTypes = new SpotsTypesDbContext();
 
         // GET: Spots
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Index()
         {
             var spotTypes = dbSpotTypes.SpotsTypes;
@@ -30,6 +31,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Spots/Details/5
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -52,6 +54,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Spots/Create
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Create()
         {
             ViewBag.TypeGuid = new SelectList(dbTypes.Types, "TypeGuid", "TypeName");
@@ -63,6 +66,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Create([Bind(Include = "SpotName,Description,Longitude,Latitude,TypeGuid")] Spot spot)
         {
             if (ModelState.IsValid)
@@ -94,6 +98,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Spots/Edit/5
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -118,6 +123,7 @@ namespace UrbaneMreze.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Edit([Bind(Include = "SpotGuid,SpotName,Description,Longitude,Latitude,TypeGuid")] SpotEditViewModel spotEditViewModel)
         {
             var spotTypeFind = dbSpotTypes.SpotsTypes.First(x => x.SpotGuid == spotEditViewModel.SpotGuid);
@@ -152,6 +158,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // GET: Spots/Delete/5
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -172,6 +179,7 @@ namespace UrbaneMreze.Controllers
         }
 
         // POST: Spots/Delete/5
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
